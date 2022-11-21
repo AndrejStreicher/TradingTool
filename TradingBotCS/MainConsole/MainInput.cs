@@ -53,6 +53,16 @@
                 case 2:
                     break;
                 case 3:
+                    string promptBacktest = "Which strategy would you like to backtest ?";
+                    string[] optionsBacktest = { "MACD Strategy" };
+                    Menu BackTestMenu = new Menu(promptBacktest,optionsBacktest);
+                    int selectedItemBacktest = BackTestMenu.CreateMenu();
+                    switch (selectedItemBacktest)
+                    {
+                        case 0:
+                            Backtest.MacdStrategy(_apiKey);
+                            break;
+                    }
                     break;
                 case 4:
                     Environment.Exit(0);
