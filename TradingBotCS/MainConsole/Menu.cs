@@ -40,7 +40,7 @@ public class Menu
         Console.ResetColor();
     }
 
-    public int Run()
+    public int CreateMenu()
     {
         ConsoleKey keyPressed;
         do

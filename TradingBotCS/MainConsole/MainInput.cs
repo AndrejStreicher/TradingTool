@@ -18,37 +18,37 @@
             string[] options =
             {
                 "Get ticker info (current price, time-series, quote...)", "Get technical indicator",
-                "Execute real-time strategy", "Backtest an existing strategy","Exit"
+                "Execute real-time strategy", "Backtest an existing strategy", "Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
-            int selectedItem = mainMenu.Run();
+            int selectedItem = mainMenu.CreateMenu();
             switch (selectedItem)
             {
                 case 0:
                     string promptInfo = "What info would you like ?";
                     string[] optionsInfo = { "Current price", "Time-series", "Quote" };
                     Menu infoMenu = new Menu(promptInfo, optionsInfo);
-                    int selectedItemInfo = infoMenu.Run();
+                    int selectedItemInfo = infoMenu.CreateMenu();
                     switch (selectedItemInfo)
                     {
                         case 0:
                             string responseJsonPrice = await GetFromApi.HttpRequestInfo(_apiKey, "price");
-                            DataHandler.DataHandle(responseJsonPrice,"price");
+                            DataHandler.DataHandle(responseJsonPrice);
                             break;
                         case 1:
                             string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries(_apiKey);
-                            DataHandler.DataHandle(responseJsonTimeSeries,"time-series");
+                            DataHandler.DataHandle(responseJsonTimeSeries);
                             break;
                         case 2:
                             string responseJsonQuote = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
-                            DataHandler.DataHandle(responseJsonQuote,"quote");
+                            DataHandler.DataHandle(responseJsonQuote);
                             break;
                     }
+
                     break;
                 case 1:
-                    string responseJsonTech  = await GetFromApi.HttpRequestTech(_apiKey);
-                    Console.WriteLine(responseJsonTech);
-                    Console.ReadLine();
+                    string responseJsonTech = await GetFromApi.HttpRequestTech(_apiKey);
+                    DataHandler.DataHandle(responseJsonTech);
                     break;
                 case 2:
                     break;

@@ -11,15 +11,18 @@ public class HttpRequests
     private string _apiKey;
     private string _interval;
     private string _symbol;
+    private string _timePeriod;
 
-    public HttpRequests(string techIndicator, string endpoint, string apiKey, string interval, string symbol)
+    public HttpRequests(string techIndicator, string endpoint, string apiKey, string interval, string symbol,string timePeriod)
     {
         _techIndicator = techIndicator;
         _endpoint = endpoint;
         _apiKey = apiKey;
         _interval = interval;
         _symbol = symbol;
+        _timePeriod = timePeriod;
     }
+
 
     public async Task<string> GetTechnicalIndicator()
     {
@@ -28,6 +31,23 @@ public class HttpRequests
             _responseBody =
                 await Client.GetStringAsync(
                     $"https://api.twelvedata.com/{_techIndicator}?apikey={_apiKey}&interval={_interval}&symbol={_symbol}");
+            // Console.WriteLine(responseBody);
+            return _responseBody;
+        }
+        catch (HttpRequestException error)
+        {
+            Console.WriteLine("\nException Caught!");
+            Console.WriteLine("Message :{0} ", error.Message);
+            return error.Message;
+        }
+    }
+    public async Task<string> GetTechnicalIndicatorTimePeriod()
+    {
+        try
+        {
+            _responseBody =
+                await Client.GetStringAsync(
+                    $"https://api.twelvedata.com/{_techIndicator}?apikey={_apiKey}&interval={_interval}&symbol={_symbol}&time_period={_timePeriod}");
             // Console.WriteLine(responseBody);
             return _responseBody;
         }
@@ -51,10 +71,11 @@ public class HttpRequests
         catch (HttpRequestException error)
         {
             Console.WriteLine("\nException Caught!");
-            Console.WriteLine("Message :{0} ",error.Message);
+            Console.WriteLine("Message :{0} ", error.Message);
             return error.Message;
         }
     }
+
     public async Task<string> GetTickerTimeSeries()
     {
         try
@@ -67,7 +88,7 @@ public class HttpRequests
         catch (HttpRequestException error)
         {
             Console.WriteLine("\nException Caught!");
-            Console.WriteLine("Message :{0} ",error.Message);
+            Console.WriteLine("Message :{0} ", error.Message);
             return error.Message;
         }
     }
