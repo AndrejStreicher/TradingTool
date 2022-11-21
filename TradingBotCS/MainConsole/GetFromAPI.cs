@@ -2,7 +2,7 @@
 
 public class GetFromApi
 {
-    public static async Task<string> HttpRequestTech(string _apiKey)
+    public static async Task<string> HttpRequestTech(string apiKey)
     {
         Console.WriteLine("Enter technical indicator");
         var techIndicator = Console.ReadLine();
@@ -10,26 +10,26 @@ public class GetFromApi
         var symbol = Console.ReadLine();
         Console.WriteLine("Enter interval: ");
         var interval = Console.ReadLine();
-        HttpRequests request = new HttpRequests(techIndicator, null, _apiKey, interval, symbol);
+        HttpRequests request = new HttpRequests(techIndicator, null, apiKey, interval, symbol);
         string responseJson = await request.GetTechnicalIndicator();
         return responseJson;
     }
 
-    public static async Task<string> HttpRequestInfo(string _apiKey,string _endpoint)
+    public static async Task<string> HttpRequestInfo(string apiKey,string endpoint)
     {
         Console.WriteLine("Enter symbol: ");
         var symbol = Console.ReadLine();
-        HttpRequests request = new HttpRequests(null, _endpoint, _apiKey, null, symbol);
+        HttpRequests request = new HttpRequests(null, endpoint, apiKey, null, symbol);
         string responseJson = await request.GetTickerInfo();
         return responseJson;
     }
-    public static async Task<string> HttpRequestTimeSeries(string _apiKey)
+    public static async Task<string> HttpRequestTimeSeries(string apiKey)
     {
         Console.WriteLine("Enter symbol: ");
         var symbol = Console.ReadLine();
         Console.WriteLine("Enter interval: ");
         var interval = Console.ReadLine();
-        HttpRequests request = new HttpRequests(null, null, _apiKey, interval, symbol);
+        HttpRequests request = new HttpRequests(null, null, apiKey, interval, symbol);
         string responseJson = await request.GetTickerTimeSeries();
         return responseJson;
     }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public class HttpRequests
 {
-    static readonly HttpClient client = new HttpClient();
+    static readonly HttpClient Client = new HttpClient();
     private string _responseBody;
     private string _techIndicator;
     private string _endpoint = null;
@@ -26,7 +26,7 @@ public class HttpRequests
         try
         {
             _responseBody =
-                await client.GetStringAsync(
+                await Client.GetStringAsync(
                     $"https://api.twelvedata.com/{_techIndicator}?apikey={_apiKey}&interval={_interval}&symbol={_symbol}");
             // Console.WriteLine(responseBody);
             return _responseBody;
@@ -44,7 +44,7 @@ public class HttpRequests
         try
         {
             _responseBody =
-                await client.GetStringAsync(
+                await Client.GetStringAsync(
                     $"https://api.twelvedata.com/{_endpoint}?apikey={_apiKey}&symbol={_symbol}");
             return _responseBody;
         }
@@ -60,7 +60,7 @@ public class HttpRequests
         try
         {
             _responseBody =
-                await client.GetStringAsync(
+                await Client.GetStringAsync(
                     $"https://api.twelvedata.com/time_series?apikey={_apiKey}&symbol={_symbol}&interval={_interval}");
             return _responseBody;
         }

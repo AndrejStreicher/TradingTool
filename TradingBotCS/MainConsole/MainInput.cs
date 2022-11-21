@@ -6,79 +6,61 @@
 
         private static async Task Main(string[] args)
         {
-            // WelcomeOptions();
-            TestMethod();
-            var firstInput = Console.ReadLine();
-            switch (firstInput)
+            while (true)
             {
-                case "1":
-                    Console.Clear();
-                    GetTickerOptions();
-                    string inputTwo = Console.ReadLine();
-                    if (inputTwo == "1")
-                    {
-                        string responseJson = await GetFromApi.HttpRequestInfo(_apiKey, "price");
-                    }
-                    else if (inputTwo == "2")
-                    {
-                        string responseJson = await GetFromApi.HttpRequestTimeSeries(_apiKey);
-                    }
-                    else if (inputTwo == "3")
-                    {
-                        string responseJson = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
-                    }
-                    else if (inputTwo == "4")
-                    {
-                        WelcomeOptions();
-                    }
-
-                    break;
-                case "2":
-                    Console.Clear();
-                    string responseJsonTech = await GetFromApi.HttpRequestTech(_apiKey);
-                    break;
+                await MainMenu();
             }
         }
 
-        private static async void WelcomeOptions()
-        {
-            Console.WriteLine("Welcome! What would you like to do ?");
-            Console.WriteLine("1.Get ticker info (current price, time-series, quote...)");
-            Console.WriteLine("2.Get technical indicator");
-            Console.WriteLine("3.Execute real-time strategy");
-            Console.WriteLine("4.Backtest an existing strategy");
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    GetTickerOptions();
-                    break;
-            }
-        }
-
-        private static async void GetTickerOptions()
-        {
-            Console.WriteLine("1. Current price");
-            Console.WriteLine("2. Time-series");
-            Console.WriteLine("3. Quote");
-            Console.WriteLine("4. Go back");
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    string responseJson = await GetFromApi.HttpRequestInfo(_apiKey, "price");
-                    break;
-            }
-        }
-
-        private static void TestMethod()
+        private static async Task MainMenu()
         {
             string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
                 "Get ticker info (current price, time-series, quote...)", "Get technical indicator",
-                "Execute real-time strategy", "Backtest an existing strategy"
+                "Execute real-time strategy", "Backtest an existing strategy","Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
             int selectedItem = mainMenu.Run();
+            switch (selectedItem)
+            {
+                case 0:
+                    string promptInfo = "What info would you like ?";
+                    string[] optionsInfo = { "Current price", "Time-series", "Quote" };
+                    Menu infoMenu = new Menu(promptInfo, optionsInfo);
+                    int selectedItemInfo = infoMenu.Run();
+                    switch (selectedItemInfo)
+                    {
+                        case 0:
+                            string responseJsonPrice = await GetFromApi.HttpRequestInfo(_apiKey, "price");
+                            Console.WriteLine(responseJsonPrice);
+                            Console.ReadLine();
+                            break;
+                        case 1:
+                            string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries(_apiKey);
+                            Console.WriteLine(responseJsonTimeSeries);
+                            Console.ReadLine();
+                            break;
+                        case 2:
+                            string responseJsonQuote = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
+                            Console.WriteLine(responseJsonQuote);
+                            Console.ReadLine();
+                            break;
+                    }
+                    break;
+                case 1:
+                    string responseJsonTech  = await GetFromApi.HttpRequestTech(_apiKey);
+                    Console.WriteLine(responseJsonTech);
+                    Console.ReadLine();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    Environment.Exit(0);
+                    break;
+            }
         }
     }
 }
