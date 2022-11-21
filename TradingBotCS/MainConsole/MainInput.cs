@@ -41,6 +41,7 @@
                             break;
                         case 2:
                             string responseJsonQuote = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
+                            DataHandler.DataHandle(responseJsonQuote,"quote");
                             break;
                     }
                     break;
