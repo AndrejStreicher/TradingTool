@@ -33,18 +33,14 @@
                     {
                         case 0:
                             string responseJsonPrice = await GetFromApi.HttpRequestInfo(_apiKey, "price");
-                            Console.WriteLine(responseJsonPrice);
-                            Console.ReadLine();
+                            DataHandler.DataHandle(responseJsonPrice,"price");
                             break;
                         case 1:
                             string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries(_apiKey);
-                            Console.WriteLine(responseJsonTimeSeries);
-                            Console.ReadLine();
+                            DataHandler.DataHandle(responseJsonTimeSeries,"time-series");
                             break;
                         case 2:
                             string responseJsonQuote = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
-                            Console.WriteLine(responseJsonQuote);
-                            Console.ReadLine();
                             break;
                     }
                     break;
