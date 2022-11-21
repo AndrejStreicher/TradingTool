@@ -2,7 +2,7 @@
 {
     internal class MainInput
     {
-        private static string _apiKey = File.ReadAllText(@"C:\Projects\TradingBotCS\MainConsole\TwelveDataAPI.txt");
+        private static string _apiKey = File.ReadAllText(@".\TwelveDataAPI.txt");
 
         private static async Task Main(string[] args)
         {
