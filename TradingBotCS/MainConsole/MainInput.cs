@@ -60,7 +60,7 @@
                     switch (selectedItemBacktest)
                     {
                         case 0:
-                            Backtest.MacdStrategy(_apiKey);
+                            await Backtest.MacdStrategy(_apiKey);
                             break;
                     }
                     break;

@@ -1,7 +1,11 @@
-﻿namespace MainConsole;
+﻿using Newtonsoft.Json.Linq;
+
+namespace MainConsole;
 
 public class Backtest
 {
+    private bool BuyLong;
+    private bool ShortSell;
     public static async Task MacdStrategy(string _apiKey)
     {
         Console.WriteLine("Enter symbol: ");
@@ -18,8 +22,21 @@ public class Backtest
             new HttpRequests("ema", null, _apiKey, interval, symbol, "200", startdate, enddate);
         HttpRequests timeSeriesRequest =
             new HttpRequests(null, null, _apiKey, interval, symbol, null, startdate, enddate);
-        string macd = await macdRequest.GetTechnicalIndicator();
-        string ema = await emaRequest.GetTechnicalIndicatorTimePeriod();
-        string timeSeries = await timeSeriesRequest.GetTickerTimeSeries();
+        string macdTemp = await macdRequest.GetTechnicalIndicator();
+        string emaTemp = await emaRequest.GetTechnicalIndicatorTimePeriod();
+        string timeSeriesTemp = await timeSeriesRequest.GetTickerTimeSeries();
+        var macd = JObject.Parse(macdTemp);
+        var ema = JObject.Parse(emaTemp);
+        var timeSeries = JObject.Parse(timeSeriesTemp);
+        if (macd["values"].Count() != ema["values"].Count() || ema["values"].Count() != timeSeries["values"].Count() ||
+            timeSeries["values"].Count() != macd["values"].Count())
+        {
+            Console.WriteLine("JSON lengths don't match!");
+            Console.WriteLine("Press any key to return to main menu...");
+            Console.ReadKey(true);
+        }
+        else
+        {
+        }
     }
 }
