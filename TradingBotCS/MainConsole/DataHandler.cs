@@ -17,8 +17,7 @@ public class DataHandler
                 Console.Clear();
                 string jsonFormatted = JValue.Parse(dataJson).ToString(Formatting.Indented);
                 Console.WriteLine(jsonFormatted);
-                Console.WriteLine("Press any key to return to main menu...");
-                Console.ReadKey(true);
+                HelperMethods.ReturnToMenu();
                 break;
             case 1:
                 Console.Clear();

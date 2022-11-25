@@ -18,7 +18,7 @@
             string[] options =
             {
                 "Get ticker info (current price, time-series, quote...)", "Get technical indicator",
-                "Execute real-time strategy", "Backtest an existing strategy", "Exit"
+                "Backtest an existing strategy", "Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
             int selectedItem = mainMenu.CreateMenu();
@@ -51,20 +51,19 @@
                     DataHandler.DataHandle(responseJsonTech);
                     break;
                 case 2:
-                    break;
-                case 3:
                     string promptBacktest = "Which strategy would you like to backtest ?";
                     string[] optionsBacktest = { "MACD Strategy" };
-                    Menu BackTestMenu = new Menu(promptBacktest,optionsBacktest);
+                    Menu BackTestMenu = new Menu(promptBacktest, optionsBacktest);
                     int selectedItemBacktest = BackTestMenu.CreateMenu();
                     switch (selectedItemBacktest)
                     {
                         case 0:
-                            await Backtest.MacdStrategy(_apiKey);
+                            await MACD_EMA_Strategy.MacdEmaStrategy(_apiKey);
                             break;
                     }
+
                     break;
-                case 4:
+                case 3:
                     Environment.Exit(0);
                     break;
             }
