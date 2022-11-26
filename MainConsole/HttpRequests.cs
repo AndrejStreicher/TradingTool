@@ -22,7 +22,7 @@ public class HttpRequests
         _symbol = args[3];
         _startdate = args[4];
         _enddate = args[5];
-        _timePeriod = args[6];
+        _timePeriod = args[6] ?? "9";
     }
 
     public async Task<string> APICall()
