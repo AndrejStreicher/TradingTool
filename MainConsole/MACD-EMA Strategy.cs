@@ -16,9 +16,9 @@ public class MACD_EMA_Strategy
             new HttpRequests("ema", apikey, interval, symbol, startdate, enddate,"200");
         HttpRequests timeSeriesRequest =
             new HttpRequests("time_series", apikey, interval, symbol, startdate, enddate,null);
-        string macdTemp = await macdRequest.APICall();
-        string emaTemp = await emaRequest.APICall();
-        string timeSeriesTemp = await timeSeriesRequest.APICall();
+        string macdTemp = await macdRequest.ApiCall();
+        string emaTemp = await emaRequest.ApiCall();
+        string timeSeriesTemp = await timeSeriesRequest.ApiCall();
         var macd = JObject.Parse(macdTemp);
         var ema = JObject.Parse(emaTemp);
         var timeSeries = JObject.Parse(timeSeriesTemp);
@@ -36,17 +36,17 @@ public class MACD_EMA_Strategy
         {
             for (int i = dataLength - 1; i >= 0; i--)
             {
-                if ((Convert.ToDouble(macd["values"][i]["macd"]) < 0
-                     && Convert.ToDouble(macd["values"][i]["macd_signal"]) < 0
-                     && (Convert.ToDouble(macd["values"][i]["macd"]) >
-                         Convert.ToDouble(macd["values"][i]["macd_signal"]))
-                     && (Convert.ToDouble(timeSeries["values"][i]["close"]) >
-                         Convert.ToDouble(ema["values"][i]["ema"]) && Backtest._longBuy == false))
+                if ((Convert.ToDouble(macd["values"]?[i]?["macd"]) < 0
+                     && Convert.ToDouble(macd["values"]?[i]?["macd_signal"]) < 0
+                     && (Convert.ToDouble(macd["values"]?[i]?["macd"]) >
+                         Convert.ToDouble(macd["values"]?[i]?["macd_signal"]))
+                     && (Convert.ToDouble(timeSeries["values"]?[i]?["close"]) >
+                         Convert.ToDouble(ema["values"]?[i]?["ema"]) && Backtest.BuyingLong == false))
                    )
                 {
-                    if (Backtest._shortSell == true)
+                    if (Backtest.SellingShort == true)
                     {
-                        Backtest._shortSell = false;
+                        Backtest.SellingShort = false;
                         Backtest.LongBuy((macd["values"][i]["datetime"]).ToString());
                     }
                     else
@@ -59,11 +59,11 @@ public class MACD_EMA_Strategy
                           && (Convert.ToDouble(macd["values"][i]["macd"]) <
                               Convert.ToDouble(macd["values"][i]["macd_signal"]))
                           && (Convert.ToDouble(timeSeries["values"][i]["close"]) <
-                              Convert.ToDouble(ema["values"][i]["ema"]) && Backtest._shortSell == false)))
+                              Convert.ToDouble(ema["values"][i]["ema"]) && Backtest.SellingShort == false)))
                 {
-                    if (Backtest._longBuy == true)
+                    if (Backtest.BuyingLong == true)
                     {
-                        Backtest._longBuy = false;
+                        Backtest.BuyingLong = false;
                         Backtest.ShortSell((macd["values"][i]["datetime"]).ToString());
                     }
                     else

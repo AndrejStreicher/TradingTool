@@ -11,7 +11,7 @@ public class GetFromApi
         var enddate = UserInputs.GetEnddateInput();
         HttpRequests request =
             new HttpRequests(techIndicator, apiKey, interval, symbol, startdate, enddate, null);
-        string responseJson = await request.APICall();
+        string responseJson = await request.ApiCall();
         return responseJson;
     }
 
@@ -25,15 +25,15 @@ public class GetFromApi
         var timePeriod = UserInputs.GetTimePeriodInput();
         HttpRequests request =
             new HttpRequests(techIndicator, apiKey, interval, symbol, startdate, enddate, timePeriod);
-        string responseJson = await request.APICall();
+        string responseJson = await request.ApiCall();
         return responseJson;
     }
 
-    public static async Task<string> HttpRequestInfo(string apiKey, string endpoint)
+    public static async Task<string> HttpRequestInfo(string apiKey, string? endpoint)
     {
         var symbol = UserInputs.GetSymbolInput();
         HttpRequests request = new HttpRequests(endpoint, apiKey, null, symbol, null, null, null);
-        string responseJson = await request.APICall();
+        string responseJson = await request.ApiCall();
         return responseJson;
     }
 
@@ -44,7 +44,7 @@ public class GetFromApi
         var startdate = UserInputs.GetStartdateInput();
         var enddate = UserInputs.GetEnddateInput();
         HttpRequests request = new HttpRequests("time_series", apiKey, interval, symbol, startdate, enddate, null);
-        string responseJson = await request.APICall();
+        string responseJson = await request.ApiCall();
         return responseJson;
     }
 }
