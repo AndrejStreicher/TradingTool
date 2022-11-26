@@ -33,22 +33,22 @@
                     {
                         case 0:
                             string responseJsonPrice = await GetFromApi.HttpRequestInfo(_apiKey, "price");
-                            DataHandler.DataHandle(responseJsonPrice);
+                            DataHandler.DataHandle(responseJsonPrice,"price");
                             break;
                         case 1:
                             string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries(_apiKey);
-                            DataHandler.DataHandle(responseJsonTimeSeries);
+                            DataHandler.DataHandle(responseJsonTimeSeries,"timeSeries");
                             break;
                         case 2:
                             string responseJsonQuote = await GetFromApi.HttpRequestInfo(_apiKey, "quote");
-                            DataHandler.DataHandle(responseJsonQuote);
+                            DataHandler.DataHandle(responseJsonQuote,"quote");
                             break;
                     }
 
                     break;
                 case 1:
                     string responseJsonTech = await GetFromApi.HttpRequestTech(_apiKey);
-                    DataHandler.DataHandle(responseJsonTech);
+                    DataHandler.DataHandle(responseJsonTech,"technicalIndicator");
                     break;
                 case 2:
                     string promptBacktest = "Which strategy would you like to backtest ?";
