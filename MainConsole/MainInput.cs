@@ -14,6 +14,7 @@
 
         private static async Task MainMenu()
         {
+            HelperMethods.CheckForDirectories();
             string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
