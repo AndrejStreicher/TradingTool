@@ -2,18 +2,18 @@
 
 public class Backtest
 {
-    public static bool _longBuy;
-    public static bool _shortSell;
+    public static bool BuyingLong;
+    public static bool SellingShort;
 
     public static void LongBuy(string datetime)
     {
-        _longBuy = true;
+        BuyingLong = true;
         Console.WriteLine($"Long trade: {datetime}");
     }
 
     public static void ShortSell(string datetime)
     {
-        _shortSell = true;
+        SellingShort = true;
         Console.WriteLine($"Short trade: {datetime}");
     }
 }
