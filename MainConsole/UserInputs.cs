@@ -41,9 +41,16 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetTimePeriodInput()
+    public static string GetTimePeriodInput(string number)
     {
+        if (number == "0")
+        {
         Console.WriteLine("Enter time-period: ");
+        }
+        else
+        {
+        Console.WriteLine($"Enter time-period number {number}: ");
+        }
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -68,9 +75,17 @@ public class UserInputs
         return techIndicator;
     }
 
-    public static string GetSeriesType()
+    public static string GetSeriesType(string number)
     {
-        Console.WriteLine("Series type (default: close): ");
+        if (number == "0")
+        {
+            Console.WriteLine($"Series type (default: close): ");
+        }
+        else
+        {
+            Console.WriteLine($"Series type number {number} (default: close): ");
+        }
+
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -89,6 +104,21 @@ public class UserInputs
     public static string GetMaType()
     {
         Console.WriteLine("Moving average type (ema,sma,ma): ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+    public static string GetFastMaType()
+    {
+        Console.WriteLine("Fast moving average type (ema,sma,ma): ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+    public static string GetSlowMaType()
+    {
+        Console.WriteLine("Slow moving average type (ema,sma,ma): ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+    public static string GetSignalMaType()
+    {
+        Console.WriteLine("Signal moving average type (ema,sma,ma): ");
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -134,21 +164,10 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static bool GetCentered()
+    public static string GetCentered()
     {
         Console.WriteLine("Specifies if there should be a shift to match the current price (true or false): ");
-        bool boolResponse;
-        string response = Console.ReadLine();
-        if (response == "true")
-        {
-            boolResponse = true;
-        }
-        else
-        {
-            boolResponse = false;
-        }
-
-        return boolResponse;
+        return Console.ReadLine() ?? string.Empty;
     }
 
     public static string GetBaseLinePeriod()
@@ -163,22 +182,11 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static bool GetIncludeAheadSpanPeriod()
+    public static string GetIncludeAheadSpanPeriod()
     {
         Console.WriteLine(
             " Specifies if the span values ahead the current moment should be returned (true or false): ");
-        bool boolResponse;
-        string response = Console.ReadLine();
-        if (response == "true")
-        {
-            boolResponse = true;
-        }
-        else
-        {
-            boolResponse = false;
-        }
-
-        return boolResponse;
+        return Console.ReadLine() ?? string.Empty;
     }
 
     public static string GetLaggingSpanPeriod()
@@ -187,7 +195,7 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetLaggingSpanBPeriod()
+    public static string GetLeadingSpanBPeriod()
     {
         Console.WriteLine("Lagging span B period (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
@@ -199,21 +207,27 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetRocPeriod()
+    public static string GetAtrMultiplier()
     {
-        Console.WriteLine("Rate of change period (1 to 800): ");
+        Console.WriteLine("Get ATR multiplier: ");
+        return Console.ReadLine() ?? string.Empty;  
+    }
+
+    public static string GetRocPeriod(string number)
+    {
+        Console.WriteLine($"Rate of change period number {number} (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
 
     public static string GetSignalPeriod()
     {
-        Console.WriteLine("Signal period (1 to 800): ");
+        Console.WriteLine("Signal period number (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetSmaPeriod()
+    public static string GetSmaPeriod(string number)
     {
-        Console.WriteLine("Simple moving average period (1 to 800): ");
+        Console.WriteLine($"Simple moving average period number {number} (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -300,6 +314,22 @@ public class UserInputs
         Console.WriteLine("Slow D period (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
+    
+    public static string GetSlowDmaType()
+    {
+        Console.WriteLine("Type of moving average to be used on slow DMA: ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+    public static string GetSlowKmaType()
+    {
+        Console.WriteLine("Type of moving average to be used on slow KMA: ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+    public static string GetFastDmaType()
+    {
+        Console.WriteLine("Type of moving average to be used on fast DMA: ");
+        return Console.ReadLine() ?? string.Empty;
+    }
 
     public static string GetSlowKPeriod()
     {
@@ -318,10 +348,16 @@ public class UserInputs
         Console.WriteLine("Period (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
+    public static string GetSdTimePeriod()
+    {
+        Console.WriteLine("Number of periods for standard deviation. Must be greater than 0 (recommended: 9): ");
+        return Console.ReadLine() ?? string.Empty;
+    }
 
     public static string GetVFactor()
     {
         Console.WriteLine("Volume factor (0 to 1): ");
         return Console.ReadLine() ?? string.Empty;
     }
+    
 }

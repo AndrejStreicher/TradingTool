@@ -6,29 +6,16 @@ public class GetFromApi
     {
         var techIndicator = UserInputs.GetTechnicalIndicator();
         var symbol = UserInputs.GetSymbolInput();
+        var parameters = InputChecker.TechIndicatorParameterChecker(techIndicator);
         var interval = UserInputs.GetIntervalInput();
         var startdate = UserInputs.GetStartdateInput();
         var enddate = UserInputs.GetEnddateInput();
         HttpRequests request =
-            new HttpRequests(techIndicator, apiKey, interval, symbol, startdate, enddate, null);
+            new HttpRequests(techIndicator, apiKey, parameters[0], symbol, startdate, enddate, null);
         string responseJson = await request.ApiCall();
         return responseJson;
     }
-
-    public static async Task<string> HttpRequestTechTimePeriod(string apiKey)
-    {
-        var techIndicator = UserInputs.GetTechnicalIndicator();
-        var symbol = UserInputs.GetSymbolInput();
-        var interval = UserInputs.GetIntervalInput();
-        var startdate = UserInputs.GetStartdateInput();
-        var enddate = UserInputs.GetEnddateInput();
-        var timePeriod = UserInputs.GetTimePeriodInput();
-        HttpRequests request =
-            new HttpRequests(techIndicator, apiKey, interval, symbol, startdate, enddate, timePeriod);
-        string responseJson = await request.ApiCall();
-        return responseJson;
-    }
-
+    
     public static async Task<string> HttpRequestInfo(string apiKey, string? endpoint)
     {
         var symbol = UserInputs.GetSymbolInput();
