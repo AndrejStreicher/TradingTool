@@ -16,11 +16,11 @@ public class HttpRequests
     public HttpRequests(params string?[] args)
     {
         _endpoint = args[0];
-        _apiKey = args[1];
-        _interval = args[2];
-        _symbol = args[3];
-        _startdate = args[4];
-        _enddate = args[5];
+        _apiKey = $"?apikey={args[1]}";
+        _interval = $"&interval={args[2]}";
+        _symbol = $"&symbol={args[3]}";
+        _startdate = $"&start_date={args[4]}";
+        _enddate = $"&end_date={args[5]}";
         _timePeriod = args[6] ?? "9";
     }
 
@@ -30,7 +30,7 @@ public class HttpRequests
         {
             string responseBody =
                 await Client.GetStringAsync(
-                    $"https://api.twelvedata.com/{_endpoint}?apikey={_apiKey}&interval={_interval}&symbol={_symbol}&start_date={_startdate}&end_date={_enddate}&time_period={_timePeriod}");
+                    $"https://api.twelvedata.com/{_endpoint}{_apiKey}{_interval}{_symbol}{_startdate}{_enddate}");
             return responseBody;
         }
         catch (HttpRequestException error)
