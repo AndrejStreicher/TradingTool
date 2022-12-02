@@ -59,7 +59,6 @@
                     switch (selectedItemBacktest)
                     {
                         case 0:
-                            await MACD_EMA_Strategy.MacdEmaStrategy(ApiKey);
                             break;
                     }
 
