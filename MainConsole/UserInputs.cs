@@ -14,11 +14,19 @@ public class UserInputs
 
         Console.WriteLine("");
         Console.WriteLine("______________________________________");
-        Console.WriteLine("Enter interval: ");
         do
         {
-            interval = Console.ReadLine();
-        } while (InputChecker.intervals.Any(interval.Contains) == false);
+            Console.WriteLine("Enter interval: ");
+            interval = Console.ReadLine() ?? string.Empty;
+            if (interval == string.Empty)
+            {
+                Console.WriteLine("Interval required!");
+            }
+            else if (InputChecker.intervals.Contains(interval) == false)
+            {
+                Console.WriteLine("Unknown interval, try again:");
+            }
+        } while (InputChecker.intervals.Contains(interval) == false);
 
         return interval;
     }
@@ -45,12 +53,13 @@ public class UserInputs
     {
         if (number == "0")
         {
-        Console.WriteLine("Enter time-period: ");
+            Console.WriteLine("Enter time-period: ");
         }
         else
         {
-        Console.WriteLine($"Enter time-period number {number}: ");
+            Console.WriteLine($"Enter time-period number {number}: ");
         }
+
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -66,25 +75,33 @@ public class UserInputs
 
         Console.WriteLine("");
         Console.WriteLine("______________________________________");
-        Console.WriteLine("Enter technical indicator: ");
         do
         {
-            techIndicator = Console.ReadLine();
-        } while (InputChecker.allTechIndicators.Any(techIndicator.Contains) == false);
+            Console.WriteLine("Enter technical indicator: ");
+            techIndicator = Console.ReadLine() ?? string.Empty;
+            techIndicator = techIndicator.ToLower();
+            if (techIndicator.Contains(" "))
+            {
+                techIndicator = techIndicator.Replace(" ", "_");
+            }
+            if (techIndicator == string.Empty)
+            {
+                Console.WriteLine("Technical indicator required!");
+            }
+            else if (InputChecker.allTechIndicators.Contains(techIndicator) == false)
+            {
+                Console.WriteLine("Unknown technical indicator!");
+            }
+        } while (InputChecker.allTechIndicators.Contains(techIndicator) == false);
 
         return techIndicator;
     }
 
     public static string GetSeriesType(string number)
     {
-        if (number == "0")
-        {
-            Console.WriteLine($"Series type (default: close): ");
-        }
-        else
-        {
-            Console.WriteLine($"Series type number {number} (default: close): ");
-        }
+        Console.WriteLine(number == "0"
+            ? "Series type (close|open|high|low|volume): "
+            : $"Series type number {number} (close|open|high|low|volume): ");
 
         return Console.ReadLine() ?? string.Empty;
     }
@@ -106,16 +123,19 @@ public class UserInputs
         Console.WriteLine("Moving average type (ema,sma,ma): ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetFastMaType()
     {
         Console.WriteLine("Fast moving average type (ema,sma,ma): ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetSlowMaType()
     {
         Console.WriteLine("Slow moving average type (ema,sma,ma): ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetSignalMaType()
     {
         Console.WriteLine("Signal moving average type (ema,sma,ma): ");
@@ -210,7 +230,7 @@ public class UserInputs
     public static string GetAtrMultiplier()
     {
         Console.WriteLine("Get ATR multiplier: ");
-        return Console.ReadLine() ?? string.Empty;  
+        return Console.ReadLine() ?? string.Empty;
     }
 
     public static string GetRocPeriod(string number)
@@ -314,17 +334,19 @@ public class UserInputs
         Console.WriteLine("Slow D period (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
-    
+
     public static string GetSlowDmaType()
     {
         Console.WriteLine("Type of moving average to be used on slow DMA: ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetSlowKmaType()
     {
         Console.WriteLine("Type of moving average to be used on slow KMA: ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetFastDmaType()
     {
         Console.WriteLine("Type of moving average to be used on fast DMA: ");
@@ -348,6 +370,7 @@ public class UserInputs
         Console.WriteLine("Period (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;
     }
+
     public static string GetSdTimePeriod()
     {
         Console.WriteLine("Number of periods for standard deviation. Must be greater than 0 (recommended: 9): ");
@@ -359,5 +382,4 @@ public class UserInputs
         Console.WriteLine("Volume factor (0 to 1): ");
         return Console.ReadLine() ?? string.Empty;
     }
-    
 }

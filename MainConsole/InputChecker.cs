@@ -199,35 +199,34 @@ public class InputChecker
     {
         List<string> parameters = new List<string>(60);
         parameters.AddRange(Enumerable.Repeat(string.Empty, 60));
-        if (techInterval.Any(technicalIndicator.Contains))
+        if (techInterval.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             return parameters.ToArray();
         }
 
-        if (techIntervalTimePeriod.Any(technicalIndicator.Contains))
+        if (techIntervalTimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesType1.Any(technicalIndicator.Contains))
+        if (techIntervalSeriesType1.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesTypeTimePeriod.Any(technicalIndicator.Contains))
+        if (techIntervalSeriesTypeTimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
-
-        if (techIntervalSeriesType12.Any(technicalIndicator.Contains))
+        if (techIntervalSeriesType12.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(4,UserInputs.GetSeriesType("1"));
@@ -235,7 +234,7 @@ public class InputChecker
             return parameters.ToArray();
         }
 
-        if (techIntervalFastPeriodMaTypeSeriesTypeSlowPeriod.Any(technicalIndicator.Contains))
+        if (techIntervalFastPeriodMaTypeSeriesTypeSlowPeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
@@ -245,7 +244,7 @@ public class InputChecker
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesType12TimePeriod.Any(technicalIndicator.Contains))
+        if (techIntervalSeriesType12TimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
