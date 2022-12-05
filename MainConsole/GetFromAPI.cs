@@ -29,7 +29,11 @@ public class GetFromApi
     public static async Task<string> HttpRequestInfo(string? endpoint)
     {
         var symbol = UserInputs.GetSymbolInput();
-        HttpRequests request = new HttpRequests(endpoint, HelperMethods.ApiKey, null, symbol, null, null, null);
+        HttpRequests request = new HttpRequests(endpoint, HelperMethods.ApiKey, null, symbol, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null);
         string responseJson = await request.ApiCall();
         return responseJson;
     }
@@ -41,7 +45,10 @@ public class GetFromApi
         var startdate = UserInputs.GetStartdateInput();
         var enddate = UserInputs.GetEnddateInput();
         HttpRequests request = new HttpRequests("time_series", HelperMethods.ApiKey, interval, symbol, startdate,
-            enddate, null);
+            enddate, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null);
         string responseJson = await request.ApiCall();
         return responseJson;
     }

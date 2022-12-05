@@ -6,18 +6,18 @@ public class HttpRequests
 {
     static readonly HttpClient Client = new HttpClient();
     private string? _endpoint;
-    private string _apiKey;
+    private string? _apiKey;
     private string? _interval;
     private string? _symbol;
     private string? _startdate;
     private string? _enddate;
-    private string _timePeriod1;
-    private string _timePeriod2;
-    private string _timePeriod3;
-    private string _seriesType1;
-    private string _seriesType2;
-    private string _fastPeriod;
-    private string _slowPeriod;
+    private string? _timePeriod1;
+    private string? _timePeriod2;
+    private string? _timePeriod3;
+    private string? _seriesType1;
+    private string? _seriesType2;
+    private string? _fastPeriod;
+    private string? _slowPeriod;
     private string _maType;
     private string _sd;
     private string _longRoCperiod;
@@ -72,7 +72,7 @@ public class HttpRequests
     private string _seriesType0;
 
 
-    public HttpRequests(params string[] args)
+    public HttpRequests(params string?[] args)
     {
         _endpoint = args[0];
         _apiKey = $"?apikey={args[1]}";

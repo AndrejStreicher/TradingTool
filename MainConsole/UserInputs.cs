@@ -63,9 +63,9 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetTechnicalIndicator()
+    public static string? GetTechnicalIndicator()
     {
-        string techIndicator;
+        string? techIndicator;
         Console.WriteLine("Technical indicators: ");
         Console.WriteLine("______________________________________");
         for (int i = 0; i < InputChecker.AllTechIndicators.Length; i++)

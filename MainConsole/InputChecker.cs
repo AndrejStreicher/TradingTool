@@ -195,7 +195,7 @@ public class InputChecker
        59 timePeriod0
        60 seriesType0
         */
-    public static string[] TechIndicatorParameterChecker(string technicalIndicator)
+    public static string[] TechIndicatorParameterChecker(string? technicalIndicator)
     {
         List<string> parameters = new List<string>(60);
         parameters.AddRange(Enumerable.Repeat(string.Empty, 60));
