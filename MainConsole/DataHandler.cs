@@ -19,7 +19,7 @@ public class DataHandler
         {
             int valuesLength = jsonFormatted["values"].Count();
             fileName =
-                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"][valuesLength - 1]["datetime"]}_{jsonFormatted["values"][0]["datetime"]}";
+                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
         }
         else if (dataType == "quote")
         {
@@ -29,7 +29,7 @@ public class DataHandler
         {
             int valuesLength = jsonFormatted["values"].Count();
             fileName =
-                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"][valuesLength - 1]["datetime"]}_{jsonFormatted["values"][0]["datetime"]}";
+                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
         }
 
         if (fileName != null && fileName.Contains(@"\"))
@@ -71,7 +71,7 @@ public class DataHandler
                 layoutOptions.IgnoreArrayTitle = true;
                 layoutOptions.IgnoreObjectTitle = true;
                 layoutOptions.ArrayAsTable = true;
-                JsonUtility.ImportData(jsonFormatted["values"].ToString(), worksheet.Cells, 0, 0, layoutOptions);
+                JsonUtility.ImportData(jsonFormatted["values"]?.ToString(), worksheet.Cells, 0, 0, layoutOptions);
                 workbook.Save($@".\Data\{dataType}\{fileName}.csv", SaveFormat.Csv);
                 Console.WriteLine("File written successfully!");
                 HelperMethods.ReturnToMenu();

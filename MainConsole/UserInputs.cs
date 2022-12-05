@@ -7,9 +7,9 @@ public class UserInputs
         string interval;
         Console.WriteLine("Intervals: ");
         Console.WriteLine("______________________________________");
-        for (int i = 0; i < InputChecker.intervals.Length; i++)
+        for (int i = 0; i < InputChecker.Intervals.Length; i++)
         {
-            Console.Write($"{InputChecker.intervals[i]} ");
+            Console.Write($"{InputChecker.Intervals[i]} ");
         }
 
         Console.WriteLine("");
@@ -22,11 +22,11 @@ public class UserInputs
             {
                 Console.WriteLine("Interval required!");
             }
-            else if (InputChecker.intervals.Contains(interval) == false)
+            else if (InputChecker.Intervals.Contains(interval) == false)
             {
                 Console.WriteLine("Unknown interval, try again:");
             }
-        } while (InputChecker.intervals.Contains(interval) == false);
+        } while (InputChecker.Intervals.Contains(interval) == false);
 
         return interval;
     }
@@ -68,9 +68,9 @@ public class UserInputs
         string techIndicator;
         Console.WriteLine("Technical indicators: ");
         Console.WriteLine("______________________________________");
-        for (int i = 0; i < InputChecker.allTechIndicators.Length; i++)
+        for (int i = 0; i < InputChecker.AllTechIndicators.Length; i++)
         {
-            Console.Write($"{InputChecker.allTechIndicators[i]} ");
+            Console.Write($"{InputChecker.AllTechIndicators[i]} ");
         }
 
         Console.WriteLine("");
@@ -84,15 +84,16 @@ public class UserInputs
             {
                 techIndicator = techIndicator.Replace(" ", "_");
             }
+
             if (techIndicator == string.Empty)
             {
                 Console.WriteLine("Technical indicator required!");
             }
-            else if (InputChecker.allTechIndicators.Contains(techIndicator) == false)
+            else if (InputChecker.AllTechIndicators.Contains(techIndicator) == false)
             {
                 Console.WriteLine("Unknown technical indicator!");
             }
-        } while (InputChecker.allTechIndicators.Contains(techIndicator) == false);
+        } while (InputChecker.AllTechIndicators.Contains(techIndicator) == false);
 
         return techIndicator;
     }
@@ -154,7 +155,7 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetWMA()
+    public static string GetWma()
     {
         Console.WriteLine("Weighted moving average (1 to 800): ");
         return Console.ReadLine() ?? string.Empty;

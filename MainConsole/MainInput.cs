@@ -2,19 +2,19 @@
 {
     internal class MainInput
     {
-        private static readonly string ApiKey = File.ReadAllText(@".\TwelveDataAPI.txt");
-
         private static async Task Main()
         {
+            HelperMethods.LoadApiKey();
             while (true)
             {
                 await MainMenu();
             }
         }
 
+
         private static async Task MainMenu()
         {
-            HelperMethods.CheckForDirectories();
+            HelperMethods.CreateDirectories();
             string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
@@ -33,22 +33,22 @@
                     switch (selectedItemInfo)
                     {
                         case 0:
-                            string responseJsonPrice = await GetFromApi.HttpRequestInfo(ApiKey, "price");
+                            string responseJsonPrice = await GetFromApi.HttpRequestInfo("price");
                             DataHandler.DataHandleJson(responseJsonPrice, "price");
                             break;
                         case 1:
-                            string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries(ApiKey);
+                            string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries();
                             DataHandler.DataHandleJson(responseJsonTimeSeries, "timeSeries");
                             break;
                         case 2:
-                            string responseJsonQuote = await GetFromApi.HttpRequestInfo(ApiKey, "quote");
+                            string responseJsonQuote = await GetFromApi.HttpRequestInfo("quote");
                             DataHandler.DataHandleJson(responseJsonQuote, "quote");
                             break;
                     }
 
                     break;
                 case 1:
-                    string responseJsonTech = await GetFromApi.HttpRequestTech(ApiKey);
+                    string responseJsonTech = await GetFromApi.HttpRequestTech();
                     DataHandler.DataHandleJson(responseJsonTech, "technicalIndicator");
                     break;
                 case 2:

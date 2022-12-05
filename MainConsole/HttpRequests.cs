@@ -20,8 +20,8 @@ public class HttpRequests
     private string _slowPeriod;
     private string _maType;
     private string _sd;
-    private string _longROCperiod;
-    private string _shortROCperiod;
+    private string _longRoCperiod;
+    private string _shortRoCperiod;
     private string _wmaPeriod;
     private string _percentRankPeriod;
     private string _rsiPeriod;
@@ -89,8 +89,8 @@ public class HttpRequests
         _slowPeriod = $"&slow_period={args[12]}";
         _maType = $"&ma_type={args[13]}";
         _sd = $"&sd={args[14]}";
-        _longROCperiod = $"&long_roc_period={args[15]}";
-        _shortROCperiod = $"&short_roc_period={args[16]}";
+        _longRoCperiod = $"&long_roc_period={args[15]}";
+        _shortRoCperiod = $"&short_roc_period={args[16]}";
         _wmaPeriod = $"&wma_period={args[17]}";
         _percentRankPeriod = $"&percent_rank_period={args[18]}";
         _rsiPeriod = $"&rsi_period={args[19]}";
@@ -147,7 +147,7 @@ public class HttpRequests
         {
             string responseBody =
                 await Client.GetStringAsync(
-                    $"https://api.twelvedata.com/{_endpoint}{_apiKey}{_interval}{_symbol}{_startdate}{_enddate}{_timePeriod1}{_timePeriod2}{_timePeriod3}{_seriesType1}{_seriesType2}{_fastPeriod}{_slowPeriod}{_maType}{_sd}{_longROCperiod}{_shortROCperiod}{_wmaPeriod}{_percentRankPeriod}{_rsiPeriod}{_upDownLength}{_centered}{_baseLinePeriod}{_conversionLinePeriod}{_includeAheadSpanperiod}{_laggingSpanPeriod}{_leadingSpanBPeriod}{_atrTimePeriod}{_multiplier}{_rocPeriod1}{_rocPeriod2}{_rocPeriod3}{_rocPeriod4}{_signalPeriod}{_smaPeriod1}{_smaPeriod2}{_smaPeriod3}{_smaPeriod4}{_fastMaType}{_signalMaType}{_slowMaType}{_fastLimit}{_slowLimit}{_acceleration}{_maximum}{_accelerationLimitLong}{_accelerationLimitShort}{_accelerationLong}{_accelerationMaxLong}{_accelerationMaxShort}{_accelerationShort}{_offsetOnReverse}{_startValue}{_fastKPeriod}{_slowDPeriod}{_slowDmaType}{_slowKPeriod}{_slowKmaType}{_fastDPeriod}{_fastDmaType}{_period}{_vFactor}{_sdTimePeriod}{_timePeriod0}{_seriesType0}");
+                    $"https://api.twelvedata.com/{_endpoint}{_apiKey}{_interval}{_symbol}{_startdate}{_enddate}{_timePeriod1}{_timePeriod2}{_timePeriod3}{_seriesType1}{_seriesType2}{_fastPeriod}{_slowPeriod}{_maType}{_sd}{_longRoCperiod}{_shortRoCperiod}{_wmaPeriod}{_percentRankPeriod}{_rsiPeriod}{_upDownLength}{_centered}{_baseLinePeriod}{_conversionLinePeriod}{_includeAheadSpanperiod}{_laggingSpanPeriod}{_leadingSpanBPeriod}{_atrTimePeriod}{_multiplier}{_rocPeriod1}{_rocPeriod2}{_rocPeriod3}{_rocPeriod4}{_signalPeriod}{_smaPeriod1}{_smaPeriod2}{_smaPeriod3}{_smaPeriod4}{_fastMaType}{_signalMaType}{_slowMaType}{_fastLimit}{_slowLimit}{_acceleration}{_maximum}{_accelerationLimitLong}{_accelerationLimitShort}{_accelerationLong}{_accelerationMaxLong}{_accelerationMaxShort}{_accelerationShort}{_offsetOnReverse}{_startValue}{_fastKPeriod}{_slowDPeriod}{_slowDmaType}{_slowKPeriod}{_slowKmaType}{_fastDPeriod}{_fastDmaType}{_period}{_vFactor}{_sdTimePeriod}{_timePeriod0}{_seriesType0}");
             return responseBody;
         }
         catch (HttpRequestException error)

@@ -2,7 +2,7 @@
 
 public class InputChecker
 {
-    public static readonly string[] allTechIndicators =
+    public static readonly string[] AllTechIndicators =
     {
         "ad",
         "add",
@@ -105,34 +105,34 @@ public class InputChecker
         "wma"
     };
 
-    public static readonly string[] intervals =
+    public static readonly string[] Intervals =
         { "1min", "5min", "15min", "30min", "45min", "1h", "2h", "4h", "1day", "1week", "1month" };
 
-    public static readonly string[] techInterval =
+    private static readonly string[] TechInterval =
         { "ad", "avgprice", "bop", "ceil", "heikinashicandles", "hcl3", "medprice", "trange", "typrice", "wclprice" };
 
-    public static readonly string[] techIntervalTimePeriod =
+    private static readonly string[] TechIntervalTimePeriod =
     {
         "adx", "adxr", "aroon", "aroonosc", "atr", "cci", "dx", "mcginley_dynamic", "mfi", "midprice", "minus_di",
         "minus_dm", "natr", "plus_di", "plus_dm", "willr"
     };
 
-    public static readonly string[] techIntervalSeriesType1 =
+    private static readonly string[] TechIntervalSeriesType1 =
     {
         "exp", "floor", "ht_dcperiod", "ht_dcphase", "ht_phasor", "ht_sine", "ht_trendline", "ht_trendmode", "ln",
         "log10", "obv", "sqrt"
     };
 
-    public static readonly string[] techIntervalSeriesTypeTimePeriod =
+    private static readonly string[] TechIntervalSeriesTypeTimePeriod =
     {
         "avg", "cmo", "dema", "ema", "kama", "linearreg", "linearregangle", "linearregintercept", "linearregslope",
         "max", "maxindex", "midpoint", "min", "minindex", "minmax", "minmaxindex", "mom", "roc", "rocp", "rocr",
         "rocr100", "rsi", "sma", "sum", "tema", "trima", "tsf", "var", "wma"
     };
 
-    public static readonly string[] techIntervalSeriesType12 = { "add", "div", "mult", "sub" };
-    public static readonly string[] techIntervalFastPeriodMaTypeSeriesTypeSlowPeriod = { "apo", "ppo" };
-    public static readonly string[] techIntervalSeriesType12TimePeriod = { "beta", "correl" };
+    private static readonly string[] TechIntervalSeriesType12 = { "add", "div", "mult", "sub" };
+    private static readonly string[] TechIntervalFastPeriodMaTypeSeriesTypeSlowPeriod = { "apo", "ppo" };
+    private static readonly string[] TechIntervalSeriesType12TimePeriod = { "beta", "correl" };
 
     /* 0 interval
        1 timePeriod 1
@@ -199,77 +199,78 @@ public class InputChecker
     {
         List<string> parameters = new List<string>(60);
         parameters.AddRange(Enumerable.Repeat(string.Empty, 60));
-        if (techInterval.Contains(technicalIndicator))
+        if (TechInterval.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             return parameters.ToArray();
         }
 
-        if (techIntervalTimePeriod.Contains(technicalIndicator))
+        if (TechIntervalTimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesType1.Contains(technicalIndicator))
+        if (TechIntervalSeriesType1.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesTypeTimePeriod.Contains(technicalIndicator))
+        if (TechIntervalSeriesTypeTimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
-        if (techIntervalSeriesType12.Contains(technicalIndicator))
+
+        if (TechIntervalSeriesType12.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(4,UserInputs.GetSeriesType("1"));
-            parameters.Insert(5,UserInputs.GetSeriesType("2"));
+            parameters.Insert(4, UserInputs.GetSeriesType("1"));
+            parameters.Insert(5, UserInputs.GetSeriesType("2"));
             return parameters.ToArray();
         }
 
-        if (techIntervalFastPeriodMaTypeSeriesTypeSlowPeriod.Contains(technicalIndicator))
+        if (TechIntervalFastPeriodMaTypeSeriesTypeSlowPeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(6,UserInputs.GetFastPeriod());
-            parameters.Insert(7,UserInputs.GetSlowPeriod());
-            parameters.Insert(8,UserInputs.GetMaType());
+            parameters.Insert(6, UserInputs.GetFastPeriod());
+            parameters.Insert(7, UserInputs.GetSlowPeriod());
+            parameters.Insert(8, UserInputs.GetMaType());
             return parameters.ToArray();
         }
 
-        if (techIntervalSeriesType12TimePeriod.Contains(technicalIndicator))
+        if (TechIntervalSeriesType12TimePeriod.Contains(technicalIndicator))
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(4,UserInputs.GetSeriesType("1"));
-            parameters.Insert(5,UserInputs.GetSeriesType("2"));
+            parameters.Insert(4, UserInputs.GetSeriesType("1"));
+            parameters.Insert(5, UserInputs.GetSeriesType("2"));
             return parameters.ToArray();
         }
 
         if (technicalIndicator == "ichimoku")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(17,UserInputs.GetBaseLinePeriod());
-            parameters.Insert(18,UserInputs.GetConversionLinePeriod());
-            parameters.Insert(19,UserInputs.GetIncludeAheadSpanPeriod());
-            parameters.Insert(20,UserInputs.GetLaggingSpanPeriod());
-            parameters.Insert(21,UserInputs.GetLeadingSpanBPeriod());
+            parameters.Insert(17, UserInputs.GetBaseLinePeriod());
+            parameters.Insert(18, UserInputs.GetConversionLinePeriod());
+            parameters.Insert(19, UserInputs.GetIncludeAheadSpanPeriod());
+            parameters.Insert(20, UserInputs.GetLaggingSpanPeriod());
+            parameters.Insert(21, UserInputs.GetLeadingSpanBPeriod());
             return parameters.ToArray();
         }
 
         if (technicalIndicator == "keltner")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(8,UserInputs.GetMaType());
-            parameters.Insert(22,UserInputs.GetAtrMultiplier());
-            parameters.Insert(23,UserInputs.GetMultiplier());
+            parameters.Insert(8, UserInputs.GetMaType());
+            parameters.Insert(22, UserInputs.GetAtrMultiplier());
+            parameters.Insert(23, UserInputs.GetMultiplier());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
@@ -278,15 +279,15 @@ public class InputChecker
         if (technicalIndicator == "kst")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(24,UserInputs.GetRocPeriod("1"));
-            parameters.Insert(25,UserInputs.GetRocPeriod("2"));
-            parameters.Insert(26,UserInputs.GetRocPeriod("3"));
-            parameters.Insert(27,UserInputs.GetRocPeriod("4"));
-            parameters.Insert(28,UserInputs.GetSignalPeriod());
-            parameters.Insert(29,UserInputs.GetSmaPeriod("1"));
-            parameters.Insert(30,UserInputs.GetSmaPeriod("2"));
-            parameters.Insert(31,UserInputs.GetSmaPeriod("3"));
-            parameters.Insert(32,UserInputs.GetSmaPeriod("4"));
+            parameters.Insert(24, UserInputs.GetRocPeriod("1"));
+            parameters.Insert(25, UserInputs.GetRocPeriod("2"));
+            parameters.Insert(26, UserInputs.GetRocPeriod("3"));
+            parameters.Insert(27, UserInputs.GetRocPeriod("4"));
+            parameters.Insert(28, UserInputs.GetSignalPeriod());
+            parameters.Insert(29, UserInputs.GetSmaPeriod("1"));
+            parameters.Insert(30, UserInputs.GetSmaPeriod("2"));
+            parameters.Insert(31, UserInputs.GetSmaPeriod("3"));
+            parameters.Insert(32, UserInputs.GetSmaPeriod("4"));
             return parameters.ToArray();
         }
 
@@ -294,7 +295,7 @@ public class InputChecker
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(8,UserInputs.GetMaType());
+            parameters.Insert(8, UserInputs.GetMaType());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             return parameters.ToArray();
         }
@@ -302,9 +303,9 @@ public class InputChecker
         if (technicalIndicator == "macd")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6,UserInputs.GetFastPeriod());
-            parameters.Insert(7,UserInputs.GetSlowPeriod());
-            parameters.Insert(28,UserInputs.GetSignalPeriod());
+            parameters.Insert(6, UserInputs.GetFastPeriod());
+            parameters.Insert(7, UserInputs.GetSlowPeriod());
+            parameters.Insert(28, UserInputs.GetSignalPeriod());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
@@ -312,12 +313,12 @@ public class InputChecker
         if (technicalIndicator == "macdext")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6,UserInputs.GetFastPeriod());
-            parameters.Insert(7,UserInputs.GetSlowPeriod());
-            parameters.Insert(28,UserInputs.GetSignalPeriod());
-            parameters.Insert(33,UserInputs.GetFastMaType());
-            parameters.Insert(34,UserInputs.GetSignalMaType());
-            parameters.Insert(35,UserInputs.GetSlowMaType());
+            parameters.Insert(6, UserInputs.GetFastPeriod());
+            parameters.Insert(7, UserInputs.GetSlowPeriod());
+            parameters.Insert(28, UserInputs.GetSignalPeriod());
+            parameters.Insert(33, UserInputs.GetFastMaType());
+            parameters.Insert(34, UserInputs.GetSignalMaType());
+            parameters.Insert(35, UserInputs.GetSlowMaType());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
@@ -325,8 +326,8 @@ public class InputChecker
         if (technicalIndicator == "mama")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(36,UserInputs.GetFastLimit());
-            parameters.Insert(37,UserInputs.GetSlowPeriod());
+            parameters.Insert(36, UserInputs.GetFastLimit());
+            parameters.Insert(37, UserInputs.GetSlowPeriod());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
         }
@@ -334,8 +335,8 @@ public class InputChecker
         if (technicalIndicator == "percent")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(8,UserInputs.GetMaType());
-            parameters.Insert(9,UserInputs.GetSd());
+            parameters.Insert(8, UserInputs.GetMaType());
+            parameters.Insert(9, UserInputs.GetSd());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
@@ -366,8 +367,8 @@ public class InputChecker
         if (technicalIndicator == "stdev")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(9,UserInputs.GetSd());
-            parameters.Insert(9,UserInputs.GetSd());
+            parameters.Insert(9, UserInputs.GetSd());
+            parameters.Insert(9, UserInputs.GetSd());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             return parameters.ToArray();
@@ -388,16 +389,16 @@ public class InputChecker
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(49, UserInputs.GetFastKPeriod());
-            parameters.Insert(54,UserInputs.GetFastDPeriod());
-            parameters.Insert(55,UserInputs.GetFastDmaType());
+            parameters.Insert(54, UserInputs.GetFastDPeriod());
+            parameters.Insert(55, UserInputs.GetFastDmaType());
             return parameters.ToArray();
         }
 
         if (technicalIndicator == "stochrsi")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(54,UserInputs.GetFastDPeriod());
-            parameters.Insert(55,UserInputs.GetFastDmaType());
+            parameters.Insert(54, UserInputs.GetFastDPeriod());
+            parameters.Insert(55, UserInputs.GetFastDmaType());
             parameters.Insert(49, UserInputs.GetFastKPeriod());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
@@ -407,8 +408,8 @@ public class InputChecker
         if (technicalIndicator == "supertrend")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(23,UserInputs.GetMultiplier());
-            parameters.Insert(56,UserInputs.GetPeriod());
+            parameters.Insert(23, UserInputs.GetMultiplier());
+            parameters.Insert(56, UserInputs.GetPeriod());
             return parameters.ToArray();
         }
 
@@ -433,7 +434,7 @@ public class InputChecker
         if (technicalIndicator == "vwap")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(9,UserInputs.GetSd());
+            parameters.Insert(9, UserInputs.GetSd());
             parameters.Insert(58, UserInputs.GetSdTimePeriod());
             return parameters.ToArray();
         }
@@ -441,8 +442,8 @@ public class InputChecker
         if (technicalIndicator == "adosc")
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6,UserInputs.GetFastPeriod());
-            parameters.Insert(7,UserInputs.GetSlowPeriod());
+            parameters.Insert(6, UserInputs.GetFastPeriod());
+            parameters.Insert(7, UserInputs.GetSlowPeriod());
             return parameters.ToArray();
         }
 
@@ -451,8 +452,8 @@ public class InputChecker
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(8,UserInputs.GetMaType());
-            parameters.Insert(9,UserInputs.GetSd());
+            parameters.Insert(8, UserInputs.GetMaType());
+            parameters.Insert(9, UserInputs.GetSd());
             return parameters.ToArray();
         }
 
@@ -462,7 +463,7 @@ public class InputChecker
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
             parameters.Insert(10, UserInputs.GetLongRocPeriod());
             parameters.Insert(11, UserInputs.GetShortRocPeriod());
-            parameters.Insert(12, UserInputs.GetWMA());
+            parameters.Insert(12, UserInputs.GetWma());
             return parameters.ToArray();
         }
 
@@ -470,9 +471,9 @@ public class InputChecker
         {
             parameters.Insert(0, UserInputs.GetIntervalInput());
             parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(13,UserInputs.GetPercentRankPeriod());
-            parameters.Insert(14,UserInputs.GetRsiPeriod());
-            parameters.Insert(15,UserInputs.GetUpDownLength());
+            parameters.Insert(13, UserInputs.GetPercentRankPeriod());
+            parameters.Insert(14, UserInputs.GetRsiPeriod());
+            parameters.Insert(15, UserInputs.GetUpDownLength());
             return parameters.ToArray();
         }
 

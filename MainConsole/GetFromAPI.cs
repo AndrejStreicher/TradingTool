@@ -2,7 +2,7 @@
 
 public class GetFromApi
 {
-    public static async Task<string> HttpRequestTech(string apiKey)
+    public static async Task<string> HttpRequestTech()
     {
         var techIndicator = UserInputs.GetTechnicalIndicator();
         var symbol = UserInputs.GetSymbolInput();
@@ -10,7 +10,8 @@ public class GetFromApi
         var startdate = UserInputs.GetStartdateInput();
         var enddate = UserInputs.GetEnddateInput();
         HttpRequests request =
-            new HttpRequests(techIndicator, apiKey, parameters[0], symbol, startdate, enddate, parameters[1],
+            new HttpRequests(techIndicator, HelperMethods.ApiKey, parameters[0], symbol, startdate, enddate,
+                parameters[1],
                 parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], parameters[7], parameters[8],
                 parameters[9], parameters[10], parameters[11], parameters[12], parameters[13], parameters[14],
                 parameters[15], parameters[16], parameters[17], parameters[18], parameters[19], parameters[20],
@@ -25,21 +26,22 @@ public class GetFromApi
         return responseJson;
     }
 
-    public static async Task<string> HttpRequestInfo(string apiKey, string? endpoint)
+    public static async Task<string> HttpRequestInfo(string? endpoint)
     {
         var symbol = UserInputs.GetSymbolInput();
-        HttpRequests request = new HttpRequests(endpoint, apiKey, null, symbol, null, null, null);
+        HttpRequests request = new HttpRequests(endpoint, HelperMethods.ApiKey, null, symbol, null, null, null);
         string responseJson = await request.ApiCall();
         return responseJson;
     }
 
-    public static async Task<string> HttpRequestTimeSeries(string apiKey)
+    public static async Task<string> HttpRequestTimeSeries()
     {
         var symbol = UserInputs.GetSymbolInput();
         var interval = UserInputs.GetIntervalInput();
         var startdate = UserInputs.GetStartdateInput();
         var enddate = UserInputs.GetEnddateInput();
-        HttpRequests request = new HttpRequests("time_series", apiKey, interval, symbol, startdate, enddate, null);
+        HttpRequests request = new HttpRequests("time_series", HelperMethods.ApiKey, interval, symbol, startdate,
+            enddate, null);
         string responseJson = await request.ApiCall();
         return responseJson;
     }
