@@ -15,7 +15,7 @@
         private static async Task MainMenu()
         {
             HelperMethods.CreateDirectories();
-            string prompt = "Welcome! What would you like to do ?";
+            const string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
                 "Get ticker info (current price, time-series, quote...)", "Get technical indicator",
@@ -26,7 +26,7 @@
             switch (selectedItem)
             {
                 case 0:
-                    string promptInfo = "What info would you like ?";
+                    const string promptInfo = "What info would you like ?";
                     string[] optionsInfo = { "Current price", "Time-series", "Quote" };
                     Menu infoMenu = new Menu(promptInfo, optionsInfo);
                     int selectedItemInfo = infoMenu.CreateMenu();
@@ -52,7 +52,7 @@
                     DataHandler.DataHandleJson(responseJsonTech, "technicalIndicator");
                     break;
                 case 2:
-                    string promptBacktest = "Which strategy would you like to backtest ?";
+                    const string promptBacktest = "Which strategy would you like to backtest ?";
                     string[] optionsBacktest = { "MACD Strategy" };
                     Menu backTestMenu = new Menu(promptBacktest, optionsBacktest);
                     int selectedItemBacktest = backTestMenu.CreateMenu();
