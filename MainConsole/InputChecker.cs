@@ -134,358 +134,264 @@ public class InputChecker
     private static readonly string[] TechIntervalFastPeriodMaTypeSeriesTypeSlowPeriod = { "apo", "ppo" };
     private static readonly string[] TechIntervalSeriesType12TimePeriod = { "beta", "correl" };
 
-    /* 0 interval
-       1 timePeriod 1
-       2 timePeriod 2
-       3 timePeriod 3
-       4 seriesType 1
-       5 seriesType 2
-       6 fastPeriod
-       7 slowPeriod
-       8 maType
-       9 sd
-       10 longROCPeriod
-       11 shortROCPeriod
-       12 wmaPeriod
-       13 percentRankPeriod
-       14 rsiPeriod
-       15 upDownLength
-       16 centered
-       17 baseLinePeriod
-       18 conversionLinePeriod
-       19 includeAheadSpanPeriod
-       20 laggingSpanPeriod
-       21 leadingSpanBPeriod
-       22 atrTimePeriod
-       23 multiplier
-       24 rocPeriod 1
-       25 rocPeriod 2
-       26 rocPeriod 3
-       27 rocPeriod 4
-       28 signalPeriod
-       29 smaPeriod 1
-       30 smaPeriod 2
-       31 smaPeriod 3
-       32 smaPeriod 4
-       33 fastMaType
-       34 signalMaType
-       35 slowMaType
-       36 fastLimit
-       37 slowLimit
-       39 acceleration
-       40 maximum
-       41 accelerationLimitLong
-       42 accelerationLimitShort
-       43 accelerationLong
-       44 accelerationMaxLong
-       45 accelerationMaxShort
-       46 accelerationShort
-       47 offsetOnReverse
-       48 startValue
-       49 fastKPeriod
-       50 slowDPeriod
-       51 slowDmaType
-       52 slowKPeriod
-       53 slowKmaType
-       54 fastDPeriod
-       55 fastDmaType
-       56 period
-       57 vFactor
-       58 sdTimePeriod
-       59 timePeriod0
-       60 seriesType0
-        */
-    public static string[] TechIndicatorParameterChecker(string? technicalIndicator)
+
+    public static string TechIndicatorParameterChecker(string? technicalIndicator)
     {
-        List<string> parameters = new List<string>(60);
-        parameters.AddRange(Enumerable.Repeat(string.Empty, 60));
+        string parameters = "";
         if (TechInterval.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}");
         }
 
         if (TechIntervalTimePeriod.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}");
         }
 
         if (TechIntervalSeriesType1.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (TechIntervalSeriesTypeTimePeriod.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (TechIntervalSeriesType12.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(4, UserInputs.GetSeriesType("1"));
-            parameters.Insert(5, UserInputs.GetSeriesType("2"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&series_type_1={UserInputs.GetSeriesType("1")}",
+                $"&series_type_2={UserInputs.GetSeriesType("2")}");
         }
 
         if (TechIntervalFastPeriodMaTypeSeriesTypeSlowPeriod.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(6, UserInputs.GetFastPeriod());
-            parameters.Insert(7, UserInputs.GetSlowPeriod());
-            parameters.Insert(8, UserInputs.GetMaType());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}",
+                $"&fast_period={UserInputs.GetFastPeriod()}",
+                $"&slow_period={UserInputs.GetSlowPeriod()}",
+                $"&ma_type={UserInputs.GetMaType()}");
         }
 
         if (TechIntervalSeriesType12TimePeriod.Contains(technicalIndicator))
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(4, UserInputs.GetSeriesType("1"));
-            parameters.Insert(5, UserInputs.GetSeriesType("2"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type_1={UserInputs.GetSeriesType("1")}",
+                $"&series_type_2={UserInputs.GetSeriesType("2")}");
         }
 
         if (technicalIndicator == "ichimoku")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(17, UserInputs.GetBaseLinePeriod());
-            parameters.Insert(18, UserInputs.GetConversionLinePeriod());
-            parameters.Insert(19, UserInputs.GetIncludeAheadSpanPeriod());
-            parameters.Insert(20, UserInputs.GetLaggingSpanPeriod());
-            parameters.Insert(21, UserInputs.GetLeadingSpanBPeriod());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&base_line_period={UserInputs.GetBaseLinePeriod()}",
+                $"&conversion_line_period={UserInputs.GetConversionLinePeriod()}",
+                $"&include_ahead_span={UserInputs.GetIncludeAheadSpanPeriod()}",
+                $"&lagging_span_period={UserInputs.GetLaggingSpanPeriod()}",
+                $"&leading_span_b_period={UserInputs.GetLeadingSpanBPeriod()}");
         }
 
         if (technicalIndicator == "keltner")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(8, UserInputs.GetMaType());
-            parameters.Insert(22, UserInputs.GetAtrMultiplier());
-            parameters.Insert(23, UserInputs.GetMultiplier());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&ma_type={UserInputs.GetMaType()}",
+                $"&multiplier={UserInputs.GetMultiplier()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "kst")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(24, UserInputs.GetRocPeriod("1"));
-            parameters.Insert(25, UserInputs.GetRocPeriod("2"));
-            parameters.Insert(26, UserInputs.GetRocPeriod("3"));
-            parameters.Insert(27, UserInputs.GetRocPeriod("4"));
-            parameters.Insert(28, UserInputs.GetSignalPeriod());
-            parameters.Insert(29, UserInputs.GetSmaPeriod("1"));
-            parameters.Insert(30, UserInputs.GetSmaPeriod("2"));
-            parameters.Insert(31, UserInputs.GetSmaPeriod("3"));
-            parameters.Insert(32, UserInputs.GetSmaPeriod("4"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&roc_period_1={UserInputs.GetRocPeriod("1")}",
+                $"&roc_period_2={UserInputs.GetRocPeriod("2")}",
+                $"&roc_period_3={UserInputs.GetRocPeriod("3")}",
+                $"&roc_period_4={UserInputs.GetRocPeriod("4")}",
+                $"&signal_period={UserInputs.GetSignalPeriod()}",
+                $"&sma_period_1={UserInputs.GetSmaPeriod("1")}",
+                $"&sma_period_2={UserInputs.GetSmaPeriod("2")}",
+                $"&sma_period_3={UserInputs.GetSmaPeriod("3")}",
+                $"&sma_period_4={UserInputs.GetSmaPeriod("4")}");
         }
 
         if (technicalIndicator == "ma")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(8, UserInputs.GetMaType());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}",
+                $"&ma_type={UserInputs.GetMaType()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}");
         }
 
         if (technicalIndicator == "macd")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6, UserInputs.GetFastPeriod());
-            parameters.Insert(7, UserInputs.GetSlowPeriod());
-            parameters.Insert(28, UserInputs.GetSignalPeriod());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_period={UserInputs.GetFastPeriod()}",
+                $"&slow_period={UserInputs.GetSlowPeriod()}",
+                $"&signal_period={UserInputs.GetSignalPeriod()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "macdext")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6, UserInputs.GetFastPeriod());
-            parameters.Insert(7, UserInputs.GetSlowPeriod());
-            parameters.Insert(28, UserInputs.GetSignalPeriod());
-            parameters.Insert(33, UserInputs.GetFastMaType());
-            parameters.Insert(34, UserInputs.GetSignalMaType());
-            parameters.Insert(35, UserInputs.GetSlowMaType());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_period={UserInputs.GetFastPeriod()}",
+                $"&slow_period={UserInputs.GetSlowPeriod()}",
+                $"&signal_period={UserInputs.GetSignalPeriod()}",
+                $"&fast_ma_type={UserInputs.GetFastMaType()}",
+                $"&signal_ma_type={UserInputs.GetSignalMaType()}",
+                $"&slow_ma_type={UserInputs.GetSlowMaType()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "mama")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(36, UserInputs.GetFastLimit());
-            parameters.Insert(37, UserInputs.GetSlowPeriod());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_limit={UserInputs.GetFastLimit()}",
+                $"&slow_limit={UserInputs.GetSlowLimit()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "percent")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(8, UserInputs.GetMaType());
-            parameters.Insert(9, UserInputs.GetSd());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&ma_type={UserInputs.GetMaType()}",
+                $"&sd={UserInputs.GetSd()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "sar")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(39, UserInputs.GetAcceleration());
-            parameters.Insert(40, UserInputs.GetMaximum());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&acceleration={UserInputs.GetAcceleration()}",
+                $"&maximum={UserInputs.GetMaximum()}");
         }
 
         if (technicalIndicator == "sarext")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(41, UserInputs.GetAccelerationLimitLong());
-            parameters.Insert(42, UserInputs.GetAccelerationLimitShort());
-            parameters.Insert(43, UserInputs.GetAccelerationLong());
-            parameters.Insert(44, UserInputs.GetAccelerationMaxLong());
-            parameters.Insert(45, UserInputs.GetAccelerationMaxShort());
-            parameters.Insert(46, UserInputs.GetAccelerationShort());
-            parameters.Insert(47, UserInputs.GetOffsetOnReverse());
-            parameters.Insert(48, UserInputs.GetStartValue());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&acceleration_limit_long={UserInputs.GetAccelerationLimitLong()}",
+                $"&acceleration_limit_short={UserInputs.GetAccelerationLimitShort()}",
+                $"&acceleration_long={UserInputs.GetAccelerationLong()}",
+                $"&acceleration_max_long={UserInputs.GetAccelerationMaxLong()}",
+                $"&acceleration_max_short={UserInputs.GetAccelerationMaxShort()}",
+                $"&acceleration_short={UserInputs.GetAccelerationShort()}",
+                $"&offset_on_reverse={UserInputs.GetOffsetOnReverse()}",
+                $"&offset_on_reverse={UserInputs.GetStartValue()}");
         }
 
         if (technicalIndicator == "stdev")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(9, UserInputs.GetSd());
-            parameters.Insert(9, UserInputs.GetSd());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&sd={UserInputs.GetSd()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "stoch")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(49, UserInputs.GetFastKPeriod());
-            parameters.Insert(50, UserInputs.GetSlowDPeriod());
-            parameters.Insert(51, UserInputs.GetSlowDmaType());
-            parameters.Insert(52, UserInputs.GetSlowKPeriod());
-            parameters.Insert(53, UserInputs.GetSlowKmaType());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_k_period={UserInputs.GetFastKPeriod()}",
+                $"&slow_d_period={UserInputs.GetSlowDPeriod()}",
+                $"&slow_dma_type={UserInputs.GetSlowDmaType()}",
+                $"&slow_k_period={UserInputs.GetSlowKPeriod()}",
+                $"&slow_kma_type={UserInputs.GetSlowKmaType()}");
         }
 
         if (technicalIndicator == "stochf")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(49, UserInputs.GetFastKPeriod());
-            parameters.Insert(54, UserInputs.GetFastDPeriod());
-            parameters.Insert(55, UserInputs.GetFastDmaType());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_k_period={UserInputs.GetFastKPeriod()}",
+                $"&fast_d_period={UserInputs.GetFastDPeriod()}",
+                $"&fast_dma_type={UserInputs.GetFastDmaType()}");
         }
 
         if (technicalIndicator == "stochrsi")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(54, UserInputs.GetFastDPeriod());
-            parameters.Insert(55, UserInputs.GetFastDmaType());
-            parameters.Insert(49, UserInputs.GetFastKPeriod());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_k_period={UserInputs.GetFastKPeriod()}",
+                $"&fast_d_period={UserInputs.GetFastDPeriod()}",
+                $"&fast_dma_type={UserInputs.GetFastDmaType()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "supertrend")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(23, UserInputs.GetMultiplier());
-            parameters.Insert(56, UserInputs.GetPeriod());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&multiplier={UserInputs.GetMultiplier()}",
+                $"&period={UserInputs.GetPeriod()}");
         }
 
         if (technicalIndicator == "t3ma")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(57, UserInputs.GetVFactor());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&v_factor={UserInputs.GetVFactor()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "ultosc")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(1, UserInputs.GetTimePeriodInput("1"));
-            parameters.Insert(2, UserInputs.GetTimePeriodInput("2"));
-            parameters.Insert(3, UserInputs.GetTimePeriodInput("3"));
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&time_period_1={UserInputs.GetTimePeriodInput("1")}",
+                $"&time_period_2={UserInputs.GetTimePeriodInput("2")}",
+                $"&time_period_3={UserInputs.GetTimePeriodInput("3")}");
         }
 
         if (technicalIndicator == "vwap")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(9, UserInputs.GetSd());
-            parameters.Insert(58, UserInputs.GetSdTimePeriod());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&sd={UserInputs.GetSd()}",
+                $"&sd_time_period={UserInputs.GetSdTimePeriod()}");
         }
 
         if (technicalIndicator == "adosc")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(6, UserInputs.GetFastPeriod());
-            parameters.Insert(7, UserInputs.GetSlowPeriod());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&fast_period={UserInputs.GetFastPeriod()}",
+                $"&slow_period={UserInputs.GetSlowPeriod()}");
         }
 
         if (technicalIndicator == "bbands")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(8, UserInputs.GetMaType());
-            parameters.Insert(9, UserInputs.GetSd());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&ma_type={UserInputs.GetMaType()}",
+                $"&sd={UserInputs.GetSd()}", $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "coppock")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(10, UserInputs.GetLongRocPeriod());
-            parameters.Insert(11, UserInputs.GetShortRocPeriod());
-            parameters.Insert(12, UserInputs.GetWma());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&long_roc_period={UserInputs.GetLongRocPeriod()}",
+                $"&short_roc_period={UserInputs.GetShortRocPeriod()}",
+                $"&wma_period={UserInputs.GetWma()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "crsi")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(13, UserInputs.GetPercentRankPeriod());
-            parameters.Insert(14, UserInputs.GetRsiPeriod());
-            parameters.Insert(15, UserInputs.GetUpDownLength());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&percent_rank_period={UserInputs.GetPercentRankPeriod()}",
+                $"&rsi_period={UserInputs.GetRsiPeriod()}",
+                $"&up_down_length={UserInputs.GetUpDownLength()}",
+                $"&series_type={UserInputs.GetSeriesType("0")}");
         }
 
         if (technicalIndicator == "dpo")
         {
-            parameters.Insert(0, UserInputs.GetIntervalInput());
-            parameters.Insert(59, UserInputs.GetTimePeriodInput("0"));
-            parameters.Insert(60, UserInputs.GetSeriesType("0"));
-            parameters.Insert(16, UserInputs.GetCentered());
-            return parameters.ToArray();
+            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",
+                $"&time_period={UserInputs.GetTimePeriodInput("0")}",
+                $"&series_type={UserInputs.GetSeriesType("0")}",
+                $"&centered={UserInputs.GetCentered()}");
         }
 
-        return parameters.ToArray();
+        return parameters;
     }
 }

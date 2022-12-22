@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Aspose.Cells;
+﻿using Aspose.Cells;
 using Aspose.Cells.Utility;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MainConsole;
 
@@ -9,7 +10,7 @@ public class DataHandler
     public static void DataHandleJson(string dataJson, string dataType)
     {
         var jsonFormatted = JObject.Parse(dataJson);
-        string? fileName = "";
+        var fileName = "";
         if (dataType == "price")
         {
             Console.WriteLine("Enter symbol name:");
@@ -17,7 +18,7 @@ public class DataHandler
         }
         else if (dataType == "timeSeries")
         {
-            int valuesLength = jsonFormatted["values"].Count();
+            var valuesLength = jsonFormatted["values"].Count();
             fileName =
                 $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
         }
@@ -27,34 +28,43 @@ public class DataHandler
         }
         else if (dataType == "technicalIndicator")
         {
-            int valuesLength = jsonFormatted["values"].Count();
+            var valuesLength = jsonFormatted["values"].Count();
             fileName =
                 $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
         }
 
         if (fileName != null && fileName.Contains(@"\"))
-        {
             fileName = fileName.Replace(@"\", "-");
-        }
-        else if (fileName != null && fileName.Contains(@"/"))
-        {
-            fileName = fileName.Replace(@"/", "-");
-        }
+        else if (fileName != null && fileName.Contains(@"/")) fileName = fileName.Replace(@"/", "-");
 
-        if (fileName != null && fileName.Contains(":"))
-        {
-            fileName = fileName.Replace(":", "-");
-        }
+        if (fileName != null && fileName.Contains(":")) fileName = fileName.Replace(":", "-");
 
-        string promptData = "How would you like to export your data ?";
+        var promptData = "How would you like to export your data ?";
         string[] optionsData = { "Print to console", "Download as JSON", "Download as CSV" };
-        Menu dataMenu = new Menu(promptData, optionsData);
-        int selectedIndex = dataMenu.CreateMenu();
+        var dataMenu = new Menu(promptData, optionsData);
+        var selectedIndex = dataMenu.CreateMenu();
         switch (selectedIndex)
         {
             case 0:
                 Console.Clear();
-                Console.WriteLine(jsonFormatted);
+                var jsonReader = jsonFormatted.CreateReader();
+                while (jsonReader.Read())
+                {
+                    if (jsonReader.TokenType == JsonToken.PropertyName)
+                    {
+                        var propertyName = jsonReader.Value.ToString();
+                        propertyName = propertyName.Replace("_", " ");
+                        propertyName = char.ToUpper(propertyName[0]) + propertyName.Substring(1);
+                        Console.Write(propertyName + ": ");
+                    }
+
+                    if (jsonReader.TokenType == JsonToken.String || jsonReader.TokenType == JsonToken.Float ||
+                        jsonReader.TokenType == JsonToken.Integer || jsonReader.TokenType == JsonToken.Boolean)
+                        Console.WriteLine(jsonReader.Value);
+
+                    if (jsonReader.Value == null) Console.WriteLine();
+                }
+
                 HelperMethods.ReturnToMenu();
                 break;
             case 1:

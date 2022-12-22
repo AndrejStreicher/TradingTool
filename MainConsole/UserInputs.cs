@@ -74,7 +74,7 @@ public class UserInputs
         }
 
         Console.WriteLine("");
-        Console.WriteLine("______________________________________");
+        Console.Write("______________________________________");
         do
         {
             Console.WriteLine("Enter technical indicator: ");
@@ -228,11 +228,6 @@ public class UserInputs
         return Console.ReadLine() ?? string.Empty;
     }
 
-    public static string GetAtrMultiplier()
-    {
-        Console.WriteLine("Get ATR multiplier: ");
-        return Console.ReadLine() ?? string.Empty;
-    }
 
     public static string GetRocPeriod(string number)
     {

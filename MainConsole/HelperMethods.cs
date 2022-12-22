@@ -35,14 +35,17 @@ public static class HelperMethods
 
     public static void LoadApiKey()
     {
-        if (File.Exists(@".\TwelveDataAPI.txt"))
+        if (File.Exists(@".\TwelveDataAPI.txt") && new FileInfo(@".\TwelveDataAPI.txt").Length > 0)
         {
             ApiKey = File.ReadAllText(@".\TwelveDataAPI.txt");
         }
-        else
+        else if (File.Exists(@".\TwelveDataAPI.txt") == false || new FileInfo(@".\TwelveDataAPI.txt").Length == 0)
         {
-            Console.WriteLine("API key not found, please enter it:");
-            ApiKey = Console.ReadLine() ?? string.Empty;
+            do
+            {
+                Console.WriteLine("API key not found, please enter it:");
+                ApiKey = Console.ReadLine() ?? string.Empty;
+            } while (ApiKey == string.Empty);
             File.WriteAllText(@".\TwelveDataAPI.txt", ApiKey);
         }
     }
