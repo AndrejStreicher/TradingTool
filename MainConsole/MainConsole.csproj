@@ -13,11 +13,4 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\price" />
-      <Folder Include="Data\quote" />
-      <Folder Include="Data\technicalIndicator" />
-      <Folder Include="Data\timeSeries" />
-    </ItemGroup>
-
 </Project>

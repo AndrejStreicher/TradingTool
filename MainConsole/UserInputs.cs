@@ -6,26 +6,17 @@ public class UserInputs
     {
         string interval;
         Console.WriteLine("Intervals: ");
-        Console.WriteLine("______________________________________");
-        for (int i = 0; i < InputChecker.Intervals.Length; i++)
-        {
-            Console.Write($"{InputChecker.Intervals[i]} ");
-        }
+        for (var i = 0; i < InputChecker.Intervals.Length; i++) Console.Write($"{InputChecker.Intervals[i]} ");
 
         Console.WriteLine("");
-        Console.WriteLine("______________________________________");
         do
         {
             Console.WriteLine("Enter interval: ");
             interval = Console.ReadLine() ?? string.Empty;
             if (interval == string.Empty)
-            {
                 Console.WriteLine("Interval required!");
-            }
             else if (InputChecker.Intervals.Contains(interval) == false)
-            {
-                Console.WriteLine("Unknown interval, try again:");
-            }
+                Console.WriteLine("Unknown interval!");
         } while (InputChecker.Intervals.Contains(interval) == false);
 
         return interval;
@@ -52,13 +43,9 @@ public class UserInputs
     public static string GetTimePeriodInput(string number)
     {
         if (number == "0")
-        {
             Console.WriteLine("Enter time-period: ");
-        }
         else
-        {
             Console.WriteLine($"Enter time-period number {number}: ");
-        }
 
         return Console.ReadLine() ?? string.Empty;
     }
@@ -68,10 +55,8 @@ public class UserInputs
         string? techIndicator;
         Console.WriteLine("Technical indicators: ");
         Console.WriteLine("______________________________________");
-        for (int i = 0; i < InputChecker.AllTechIndicators.Length; i++)
-        {
+        for (var i = 0; i < InputChecker.AllTechIndicators.Length; i++)
             Console.Write($"{InputChecker.AllTechIndicators[i]} ");
-        }
 
         Console.WriteLine("");
         Console.Write("______________________________________");
@@ -80,19 +65,12 @@ public class UserInputs
             Console.WriteLine("Enter technical indicator: ");
             techIndicator = Console.ReadLine() ?? string.Empty;
             techIndicator = techIndicator.ToLower();
-            if (techIndicator.Contains(" "))
-            {
-                techIndicator = techIndicator.Replace(" ", "_");
-            }
+            if (techIndicator.Contains(" ")) techIndicator = techIndicator.Replace(" ", "_");
 
             if (techIndicator == string.Empty)
-            {
                 Console.WriteLine("Technical indicator required!");
-            }
             else if (InputChecker.AllTechIndicators.Contains(techIndicator) == false)
-            {
                 Console.WriteLine("Unknown technical indicator!");
-            }
         } while (InputChecker.AllTechIndicators.Contains(techIndicator) == false);
 
         return techIndicator;

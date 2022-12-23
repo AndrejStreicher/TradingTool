@@ -2,8 +2,11 @@
 
 public class GetFromApi
 {
-    public static async Task<string> HttpRequestTech()
+    private static string fileName;
+
+    public static async Task HttpRequestTech()
     {
+        fileName = "";
         string techIndicator = UserInputs.GetTechnicalIndicator();
         string symbol = UserInputs.GetSymbolInput();
         string startdate = UserInputs.GetStartdateInput();
@@ -23,23 +26,27 @@ public class GetFromApi
         HttpRequests request =
             new HttpRequests(requestString);
         string responseJson = await request.ApiCall();
-        return responseJson;
+        fileName = string.Concat(fileName, symbol, "_", techIndicator, "_", startdate, enddate);
+        DataHandler.DataHandleJson(responseJson, "technicalIndicator", fileName);
     }
 
-    public static async Task<string> HttpRequestInfo(string? endpoint)
+    public static async Task HttpRequestInfo(string? endpoint)
     {
-        var symbol = UserInputs.GetSymbolInput();
+        fileName = "";
+        string symbol = UserInputs.GetSymbolInput();
         string requestString = string.Concat(endpoint, "?symbol=", symbol, "&apikey=", HelperMethods.ApiKey);
         HttpRequests request = new HttpRequests(requestString);
         string responseJson = await request.ApiCall();
-        return responseJson;
+        fileName = String.Concat(fileName, symbol, "_", endpoint);
+        DataHandler.DataHandleJson(responseJson, endpoint, fileName);
     }
 
-    public static async Task<string> HttpRequestTimeSeries()
+    public static async Task HttpRequestTimeSeries()
     {
-        var symbol = UserInputs.GetSymbolInput();
-        var interval = UserInputs.GetIntervalInput();
-        var startdate = UserInputs.GetStartdateInput();
+        fileName = "";
+        string symbol = UserInputs.GetSymbolInput();
+        string interval = UserInputs.GetIntervalInput();
+        string startdate = UserInputs.GetStartdateInput();
         string enddate;
         if (startdate != "earliest")
         {
@@ -54,6 +61,7 @@ public class GetFromApi
             "&interval=", interval, "&start_date=", startdate, "&end_date=", enddate);
         HttpRequests request = new HttpRequests(requestString);
         string responseJson = await request.ApiCall();
-        return responseJson;
+        fileName = String.Concat(fileName, symbol, "_", interval, "_", startdate, "_", enddate);
+        DataHandler.DataHandleJson(responseJson, "timeSeries", fileName);
     }
 }

@@ -5,6 +5,8 @@
         private static async Task Main()
         {
             HelperMethods.LoadApiKey();
+            HelperMethods.CreateDirectories();
+            HelperMethods.UpdateLists();
             while (true)
             {
                 await MainMenu();
@@ -14,7 +16,6 @@
 
         private static async Task MainMenu()
         {
-            HelperMethods.CreateDirectories();
             const string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
@@ -33,23 +34,19 @@
                     switch (selectedItemInfo)
                     {
                         case 0:
-                            string responseJsonPrice = await GetFromApi.HttpRequestInfo("price");
-                            DataHandler.DataHandleJson(responseJsonPrice, "price");
+                            await GetFromApi.HttpRequestInfo("price");
                             break;
                         case 1:
-                            string responseJsonTimeSeries = await GetFromApi.HttpRequestTimeSeries();
-                            DataHandler.DataHandleJson(responseJsonTimeSeries, "timeSeries");
+                            await GetFromApi.HttpRequestTimeSeries();
                             break;
                         case 2:
-                            string responseJsonQuote = await GetFromApi.HttpRequestInfo("quote");
-                            DataHandler.DataHandleJson(responseJsonQuote, "quote");
+                            await GetFromApi.HttpRequestInfo("quote");
                             break;
                     }
 
                     break;
                 case 1:
-                    string responseJsonTech = await GetFromApi.HttpRequestTech();
-                    DataHandler.DataHandleJson(responseJsonTech, "technicalIndicator");
+                    await GetFromApi.HttpRequestTech();
                     break;
                 case 2:
                     const string promptBacktest = "Which strategy would you like to backtest ?";

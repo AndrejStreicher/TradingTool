@@ -7,37 +7,43 @@ namespace MainConsole;
 
 public class DataHandler
 {
-    public static void DataHandleJson(string dataJson, string dataType)
+    public static void DataHandleJson(string dataJson, string dataType, string fileName)
     {
-        var jsonFormatted = JObject.Parse(dataJson);
-        var fileName = "";
-        if (dataType == "price")
+        JObject jsonFormatted = JObject.Parse(dataJson);
+        if (fileName != null)
         {
-            Console.WriteLine("Enter symbol name:");
-            fileName = Console.ReadLine();
-        }
-        else if (dataType == "timeSeries")
-        {
-            var valuesLength = jsonFormatted["values"].Count();
-            fileName =
-                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
-        }
-        else if (dataType == "quote")
-        {
-            fileName = $"{jsonFormatted["symbol"]}_{jsonFormatted["datetime"]}";
-        }
-        else if (dataType == "technicalIndicator")
-        {
-            var valuesLength = jsonFormatted["values"].Count();
-            fileName =
-                $"{jsonFormatted["meta"]?["symbol"]}_{jsonFormatted["meta"]?["interval"]}_{jsonFormatted["values"]?[valuesLength - 1]?["datetime"]}_{jsonFormatted["values"]?[0]?["datetime"]}";
-        }
+            if (fileName.Contains(@"\"))
+            {
+                fileName = fileName.Replace(@"\", "-");
+            }
 
-        if (fileName != null && fileName.Contains(@"\"))
-            fileName = fileName.Replace(@"\", "-");
-        else if (fileName != null && fileName.Contains(@"/")) fileName = fileName.Replace(@"/", "-");
+            if (fileName.Contains(@"/"))
+            {
+                fileName = fileName.Replace(@"/", "-");
+            }
 
-        if (fileName != null && fileName.Contains(":")) fileName = fileName.Replace(":", "-");
+            if (fileName.Contains("["))
+            {
+                fileName = fileName.Replace("[", "");
+            }
+
+            if (fileName.Contains("]"))
+            {
+                fileName = fileName.Replace("]", "");
+            }
+
+            if (fileName.Contains("'"))
+            {
+                fileName = fileName.Replace("'", "");
+            }
+
+            if (fileName.Contains(":"))
+            {
+                fileName = fileName.Replace(":", "-");
+            }
+
+            fileName = fileName.ToUpper();
+        }
 
         var promptData = "How would you like to export your data ?";
         string[] optionsData = { "Print to console", "Download as JSON", "Download as CSV" };
@@ -68,7 +74,7 @@ public class DataHandler
                 HelperMethods.ReturnToMenu();
                 break;
             case 1:
-                File.WriteAllText($@".\Data\{dataType}\{fileName}.json", jsonFormatted.ToString());
+                File.WriteAllText($@".\Downloaded data\{dataType}\{fileName}.json", jsonFormatted.ToString());
                 Console.WriteLine("File written successfully!");
                 HelperMethods.ReturnToMenu();
                 break;
@@ -82,7 +88,7 @@ public class DataHandler
                 layoutOptions.IgnoreObjectTitle = true;
                 layoutOptions.ArrayAsTable = true;
                 JsonUtility.ImportData(jsonFormatted["values"]?.ToString(), worksheet.Cells, 0, 0, layoutOptions);
-                workbook.Save($@".\Data\{dataType}\{fileName}.csv", SaveFormat.Csv);
+                workbook.Save($@".\Downloaded data\{dataType}\{fileName}.csv", SaveFormat.Csv);
                 Console.WriteLine("File written successfully!");
                 HelperMethods.ReturnToMenu();
                 break;
