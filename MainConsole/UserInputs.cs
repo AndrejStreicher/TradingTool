@@ -24,8 +24,14 @@ public class UserInputs
 
     public static string GetSymbolInput()
     {
-        Console.WriteLine("Enter symbol: ");
-        return Console.ReadLine() ?? string.Empty;
+        Console.WriteLine("Enter one or more symbols: ");
+        string symbols = Console.ReadLine();
+        if (symbols.Contains(" "))
+        {
+            symbols = symbols.Replace(" ", ",");
+        }
+
+        return symbols;
     }
 
     public static string GetStartdateInput()
