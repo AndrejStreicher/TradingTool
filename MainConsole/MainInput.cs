@@ -28,7 +28,7 @@
             {
                 case 0:
                     const string promptInfo = "What info would you like ?";
-                    string[] optionsInfo = { "Current price", "Time-series", "Quote" };
+                    string[] optionsInfo = { "Current price", "Time-series", "Quote", "Back" };
                     Menu infoMenu = new Menu(promptInfo, optionsInfo);
                     int selectedItemInfo = infoMenu.CreateMenu();
                     switch (selectedItemInfo)
@@ -42,6 +42,8 @@
                         case 2:
                             await GetFromApi.HttpRequestInfo("quote");
                             break;
+                        case 3:
+                            return;
                     }
 
                     break;
@@ -53,13 +55,15 @@
                     break;
                 case 3:
                     const string promptBacktest = "Which strategy would you like to backtest ?";
-                    string[] optionsBacktest = { "MACD Strategy" };
+                    string[] optionsBacktest = { "MACD Strategy", "Back" };
                     Menu backTestMenu = new Menu(promptBacktest, optionsBacktest);
                     int selectedItemBacktest = backTestMenu.CreateMenu();
                     switch (selectedItemBacktest)
                     {
                         case 0:
                             break;
+                        case 1:
+                            return;
                     }
 
                     break;
