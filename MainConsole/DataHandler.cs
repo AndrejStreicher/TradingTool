@@ -16,40 +16,6 @@ public class DataHandler
             return;
         }
 
-        if (fileName != null)
-        {
-            if (fileName.Contains(@"\"))
-            {
-                fileName = fileName.Replace(@"\", "-");
-            }
-
-            if (fileName.Contains(@"/"))
-            {
-                fileName = fileName.Replace(@"/", "-");
-            }
-
-            if (fileName.Contains("["))
-            {
-                fileName = fileName.Replace("[", "");
-            }
-
-            if (fileName.Contains("]"))
-            {
-                fileName = fileName.Replace("]", "");
-            }
-
-            if (fileName.Contains("'"))
-            {
-                fileName = fileName.Replace("'", "");
-            }
-
-            if (fileName.Contains(":"))
-            {
-                fileName = fileName.Replace(":", "-");
-            }
-
-            fileName = fileName.ToUpper();
-        }
 
         var promptData = "How would you like to export your data ?";
         string[] optionsData = { "Print to console", "Download as JSON", "Download as CSV" };
@@ -65,7 +31,7 @@ public class DataHandler
                         SymbolLookupClass.Root rootSymbolLookupRoot =
                             JsonConvert.DeserializeObject<SymbolLookupClass.Root>(dataJson);
 
-                        foreach (SymbolLookupClass.Data data in rootSymbolLookupRoot.DataSets)
+                        foreach (SymbolLookupClass.Data data in rootSymbolLookupRoot.Data)
                         {
                             Console.WriteLine($"Symbol:            {data.Symbol}");
                             Console.WriteLine($"Instrument name:   {data.Instrument_Name}");
@@ -128,11 +94,13 @@ public class DataHandler
 
                 break;
             case 1:
+                fileName = HelperMethods.FormatFilename(fileName);
                 File.WriteAllText($@".\Downloaded data\{dataType}\{fileName}.json", jsonFormatted.ToString());
                 Console.WriteLine("File written successfully!");
                 HelperMethods.ReturnToMenu();
                 break;
             case 2:
+                fileName = HelperMethods.FormatFilename(fileName);
                 var workbook = new Workbook();
                 var worksheet = workbook.Worksheets[0];
                 var layoutOptions = new JsonLayoutOptions();

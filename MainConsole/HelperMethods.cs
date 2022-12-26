@@ -120,4 +120,40 @@ public static class HelperMethods
             File.WriteAllText(@".\TwelveDataAPI.txt", ApiKey);
         }
     }
+
+    public static string FormatFilename(string fileName)
+    {
+        if (fileName.Contains(@"\"))
+        {
+            fileName = fileName.Replace(@"\", "-");
+        }
+
+        if (fileName.Contains(@"/"))
+        {
+            fileName = fileName.Replace(@"/", "-");
+        }
+
+        if (fileName.Contains("["))
+        {
+            fileName = fileName.Replace("[", "");
+        }
+
+        if (fileName.Contains("]"))
+        {
+            fileName = fileName.Replace("]", "");
+        }
+
+        if (fileName.Contains("'"))
+        {
+            fileName = fileName.Replace("'", "");
+        }
+
+        if (fileName.Contains(":"))
+        {
+            fileName = fileName.Replace(":", "-");
+        }
+
+        fileName = fileName.ToUpper();
+        return fileName;
+    }
 }
