@@ -16,6 +16,21 @@ public class DataHandler
             return;
         }
 
+        switch (dataType)
+        {
+            case "symbolLookup":
+                JObject obj = JObject.Parse(dataJson);
+                JArray array = (JArray)obj.SelectToken("data");
+
+                if (array.Count == 0)
+                {
+                    Console.WriteLine("No symbol found!");
+                    HelperMethods.ReturnToMenu();
+                    return;
+                }
+
+                break;
+        }
 
         var promptData = "How would you like to export your data ?";
         string[] optionsData = { "Print to console", "Download as JSON", "Download as CSV" };
@@ -42,11 +57,6 @@ public class DataHandler
                             Console.WriteLine($"Country:           {data.Country}");
                             Console.WriteLine($"Currency:          {data.Currency}");
                             Console.WriteLine();
-                        }
-
-                        if (rootSymbolLookupRoot.Data.Count == 0)
-                        {
-                            Console.WriteLine("No symbol found!");
                         }
 
                         HelperMethods.ReturnToMenu();
