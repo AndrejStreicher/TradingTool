@@ -10,6 +10,12 @@ public class DataHandler
     public static void DataHandleJson(string dataJson, string dataType, string fileName)
     {
         JObject jsonFormatted = JObject.Parse(dataJson);
+        if (jsonFormatted.Properties().First().Name == "code")
+        {
+            ErrorHandling.ErrorHandle(jsonFormatted, dataJson);
+            return;
+        }
+
         if (fileName != null)
         {
             if (fileName.Contains(@"\"))

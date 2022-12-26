@@ -13,6 +13,74 @@ public class UserInputs
         {
             Console.WriteLine("Enter interval: ");
             interval = Console.ReadLine() ?? string.Empty;
+            switch (interval)
+            {
+                case "minute":
+                case "min":
+                case "one minute":
+                case "1 min":
+                case "1 minute":
+                case "1minute":
+                    interval = "1min";
+                    break;
+                case "5 minutes":
+                case "5minutes":
+                case "5 min":
+                case "five minutes":
+                    interval = "5min";
+                    break;
+                case "15 minutes":
+                case "15minutes":
+                case "15 min":
+                case "fifteen minutes":
+                    interval = "15min";
+                    break;
+                case "30 minutes":
+                case "30minutes":
+                case "30 min":
+                case "thirty minutes":
+                    interval = "30min";
+                    break;
+                case "45 minutes":
+                case "45minutes":
+                case "45 min":
+                case "fortyfive minutes":
+                case "forty-five minutes":
+                    interval = "45min";
+                    break;
+                case "hour":
+                case "h":
+                case "one hour":
+                case "1 hour":
+                case "1hour":
+                    interval = "1h";
+                    break;
+                case "2hours":
+                case "2 hours":
+                case "two hours":
+                    interval = "2h";
+                    break;
+                case "4hours":
+                case "4 hours":
+                case "four hours":
+                    interval = "4h";
+                    break;
+                case "1d":
+                case "1 day":
+                case "one day":
+                    interval = "1day";
+                    break;
+                case "1 week":
+                case "1w":
+                case "one week":
+                    interval = "1week";
+                    break;
+                case "1 month":
+                case "one month":
+                    interval = "1month";
+                    break;
+            }
+
             if (interval == string.Empty)
                 Console.WriteLine("Interval required!");
             else if (InputChecker.Intervals.Contains(interval) == false)

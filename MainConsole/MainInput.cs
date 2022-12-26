@@ -19,7 +19,7 @@
             const string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
-                "Get ticker info (current price, time-series, quote...)", "Get technical indicator", "Look-up symbol",
+                "Get ticker info (current price, time-series, quote...)", "Get technical indicator", "Symbol search",
                 "Backtest an existing strategy", "Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
