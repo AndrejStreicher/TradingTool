@@ -4,7 +4,7 @@ public class SymbolLookupClass
 {
     public class Root
     {
-        public List<Data> DataSets { get; set; }
+        public List<Data> Data { get; set; }
         public string Status { get; set; }
     }
 
