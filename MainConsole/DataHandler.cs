@@ -44,6 +44,11 @@ public class DataHandler
                             Console.WriteLine();
                         }
 
+                        if (rootSymbolLookupRoot.Data.Count == 0)
+                        {
+                            Console.WriteLine("No symbol found!");
+                        }
+
                         HelperMethods.ReturnToMenu();
                         break;
                     case "price":
