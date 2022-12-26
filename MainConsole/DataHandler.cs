@@ -19,8 +19,7 @@ public class DataHandler
         switch (dataType)
         {
             case "symbolLookup":
-                JObject obj = JObject.Parse(dataJson);
-                JArray array = (JArray)obj.SelectToken("data");
+                JArray array = (JArray)jsonFormatted.SelectToken("data");
 
                 if (array.Count == 0)
                 {
