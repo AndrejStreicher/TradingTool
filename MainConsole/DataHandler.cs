@@ -83,20 +83,19 @@ public class DataHandler
                     case "price":
                         if (jsonFormatted.Properties().First().Name == "price")
                         {
-                            SinglePrice priceRoot =
-                                JsonConvert.DeserializeObject<SinglePrice>(dataJson);
-                            Console.WriteLine($"Price: {priceRoot.price}");
+                            SinglePriceClass priceClassRoot =
+                                JsonConvert.DeserializeObject<SinglePriceClass>(dataJson);
+                            Console.WriteLine($"Price: {priceClassRoot.price}");
 
                             HelperMethods.ReturnToMenu();
                         }
                         else
                         {
-                            CurrentPriceClass.Root priceRoot = JsonConvert.DeserializeObject<CurrentPriceClass.Root>(
-                                dataJson);
-                            foreach (CurrentPriceClass.Price price in priceRoot.Prices)
+                            Dictionary<string, MultiplePricesClass.Price> priceRoot =
+                                JsonConvert.DeserializeObject<Dictionary<string, MultiplePricesClass.Price>>(dataJson);
+                            foreach (KeyValuePair<string, MultiplePricesClass.Price> price in priceRoot)
                             {
-                                Console.WriteLine(price.price);
-                                Console.ReadLine();
+                                Console.WriteLine($"{price.Key.ToUpper()}:  {price.Value.price}");
                             }
 
                             HelperMethods.ReturnToMenu();

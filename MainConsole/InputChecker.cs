@@ -135,7 +135,7 @@ public class InputChecker
     private static readonly string[] TechIntervalSeriesType12TimePeriod = { "beta", "correl" };
 
 
-    public static string TechIndicatorParameterChecker(string? technicalIndicator)
+    public static string GetTechIndicatorParameters(string? technicalIndicator)
     {
         string parameters = "";
         if (TechInterval.Contains(technicalIndicator))

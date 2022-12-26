@@ -1,10 +1,10 @@
 ﻿namespace MainConsole;
 
-public class CurrentPriceClass
+public class MultiplePricesClass
 {
     public class Root
     {
-        public List<Price> Prices { get; set; }
+        public Dictionary<string, Price> Prices { get; set; }
     }
 
     public class Price

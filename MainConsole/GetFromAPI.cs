@@ -20,7 +20,7 @@ public class GetFromApi
             enddate = "";
         }
 
-        string parameters = InputChecker.TechIndicatorParameterChecker(techIndicator);
+        string parameters = InputChecker.GetTechIndicatorParameters(techIndicator);
         string requestString = string.Concat(techIndicator, "?symbol=", symbol, "&apikey=", HelperMethods.ApiKey,
             "&start_date=", startdate, "&end_date=", enddate, parameters);
         HttpRequests request =
