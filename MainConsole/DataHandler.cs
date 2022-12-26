@@ -23,6 +23,7 @@ public class DataHandler
 
                 if (array.Count == 0)
                 {
+                    Console.Clear();
                     Console.WriteLine("No symbol found!");
                     HelperMethods.ReturnToMenu();
                     return;
