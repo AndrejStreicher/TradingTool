@@ -34,6 +34,12 @@ public class UserInputs
         return symbols;
     }
 
+    public static string GetLookupSymbol()
+    {
+        Console.WriteLine("Enter symbol for lookup. Try to type it as precisely as possible:");
+        return Console.ReadLine() ?? string.Empty;
+    }
+
     public static string GetStartdateInput()
     {
         Console.WriteLine("Enter start-date (2000-12-31|or|2000-12-31 24-59-59): ");
@@ -60,12 +66,10 @@ public class UserInputs
     {
         string? techIndicator;
         Console.WriteLine("Technical indicators: ");
-        Console.WriteLine("______________________________________");
         for (var i = 0; i < InputChecker.AllTechIndicators.Length; i++)
             Console.Write($"{InputChecker.AllTechIndicators[i]} ");
 
         Console.WriteLine("");
-        Console.Write("______________________________________");
         do
         {
             Console.WriteLine("Enter technical indicator: ");

@@ -36,6 +36,11 @@ public static class HelperMethods
         {
             Directory.CreateDirectory(@".\Available symbols");
         }
+
+        if (Directory.Exists(@".\Downloaded data\symbolLookup") == false)
+        {
+            Directory.CreateDirectory(@".\Downloaded data\symbolLookup");
+        }
     }
 
     public static async Task UpdateLists()
@@ -69,6 +74,7 @@ public static class HelperMethods
                 timeDifferenceIndex.TotalHours > 24)
             {
                 DownloadLists();
+                Console.WriteLine("Available symbols updated!");
             }
         }
         else

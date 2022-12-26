@@ -64,4 +64,15 @@ public class GetFromApi
         fileName = String.Concat(fileName, symbol, "_", interval, "_", startdate, "_", enddate);
         DataHandler.DataHandleJson(responseJson, "timeSeries", fileName);
     }
+
+    public static async Task HttpRequestLookup()
+    {
+        fileName = "";
+        string symbol = UserInputs.GetLookupSymbol();
+        string requestString = $"symbol_search?symbol={symbol}";
+        HttpRequests request = new HttpRequests(requestString);
+        string responseJson = await request.ApiCall();
+        fileName = $"SEARCH={symbol}";
+        DataHandler.DataHandleJson(responseJson, "symbolLookup", fileName);
+    }
 }

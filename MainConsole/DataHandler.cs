@@ -53,25 +53,74 @@ public class DataHandler
         {
             case 0:
                 Console.Clear();
-                var jsonReader = jsonFormatted.CreateReader();
-                while (jsonReader.Read())
+                switch (dataType)
                 {
-                    if (jsonReader.TokenType == JsonToken.PropertyName)
-                    {
-                        var propertyName = jsonReader.Value.ToString();
-                        propertyName = propertyName.Replace("_", " ");
-                        propertyName = char.ToUpper(propertyName[0]) + propertyName.Substring(1);
-                        Console.Write(propertyName + ": ");
-                    }
+                    case "symbolLookup":
+                        SymbolLookupClass.Root rootSymbolLookupRoot =
+                            JsonConvert.DeserializeObject<SymbolLookupClass.Root>(dataJson);
 
-                    if (jsonReader.TokenType == JsonToken.String || jsonReader.TokenType == JsonToken.Float ||
-                        jsonReader.TokenType == JsonToken.Integer || jsonReader.TokenType == JsonToken.Boolean)
-                        Console.WriteLine(jsonReader.Value);
+                        foreach (SymbolLookupClass.Data data in rootSymbolLookupRoot.DataSets)
+                        {
+                            Console.WriteLine($"Symbol:            {data.Symbol}");
+                            Console.WriteLine($"Instrument name:   {data.Instrument_Name}");
+                            Console.WriteLine($"Exchange:          {data.Exchange}");
+                            Console.WriteLine($"Mic code:          {data.Mic_Code}");
+                            Console.WriteLine($"Exchange timezone: {data.Exchange_Timezone}");
+                            Console.WriteLine($"Instrument type:   {data.Instrument_Type}");
+                            Console.WriteLine($"Country:           {data.Country}");
+                            Console.WriteLine($"Currency:          {data.Currency}");
+                            Console.WriteLine();
+                        }
 
-                    if (jsonReader.Value == null) Console.WriteLine();
+                        HelperMethods.ReturnToMenu();
+                        break;
+                    case "price":
+                        if (jsonFormatted.Properties().First().Name == "price")
+                        {
+                            SinglePrice priceRoot =
+                                JsonConvert.DeserializeObject<SinglePrice>(dataJson);
+                            Console.WriteLine($"Price: {priceRoot.price}");
+
+                            HelperMethods.ReturnToMenu();
+                        }
+                        else
+                        {
+                            CurrentPriceClass.Root priceRoot = JsonConvert.DeserializeObject<CurrentPriceClass.Root>(
+                                dataJson);
+                            foreach (CurrentPriceClass.Price price in priceRoot.Prices)
+                            {
+                                Console.WriteLine(price.price);
+                                Console.ReadLine();
+                            }
+
+                            HelperMethods.ReturnToMenu();
+                        }
+
+                        break;
+
+                    default:
+                        var jsonReader = jsonFormatted.CreateReader();
+                        while (jsonReader.Read())
+                        {
+                            if (jsonReader.TokenType == JsonToken.PropertyName)
+                            {
+                                var propertyName = jsonReader.Value.ToString();
+                                propertyName = propertyName.Replace("_", " ");
+                                propertyName = char.ToUpper(propertyName[0]) + propertyName.Substring(1);
+                                Console.Write(propertyName + ": ");
+                            }
+
+                            if (jsonReader.TokenType == JsonToken.String || jsonReader.TokenType == JsonToken.Float ||
+                                jsonReader.TokenType == JsonToken.Integer || jsonReader.TokenType == JsonToken.Boolean)
+                                Console.WriteLine(jsonReader.Value);
+
+                            if (jsonReader.Value == null) Console.WriteLine();
+                        }
+
+                        HelperMethods.ReturnToMenu();
+                        break;
                 }
 
-                HelperMethods.ReturnToMenu();
                 break;
             case 1:
                 File.WriteAllText($@".\Downloaded data\{dataType}\{fileName}.json", jsonFormatted.ToString());

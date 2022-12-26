@@ -19,7 +19,7 @@
             const string prompt = "Welcome! What would you like to do ?";
             string[] options =
             {
-                "Get ticker info (current price, time-series, quote...)", "Get technical indicator",
+                "Get ticker info (current price, time-series, quote...)", "Get technical indicator", "Look-up symbol",
                 "Backtest an existing strategy", "Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
@@ -49,6 +49,9 @@
                     await GetFromApi.HttpRequestTech();
                     break;
                 case 2:
+                    await GetFromApi.HttpRequestLookup();
+                    break;
+                case 3:
                     const string promptBacktest = "Which strategy would you like to backtest ?";
                     string[] optionsBacktest = { "MACD Strategy" };
                     Menu backTestMenu = new Menu(promptBacktest, optionsBacktest);
@@ -60,7 +63,7 @@
                     }
 
                     break;
-                case 3:
+                case 4:
                     Environment.Exit(0);
                     break;
             }
