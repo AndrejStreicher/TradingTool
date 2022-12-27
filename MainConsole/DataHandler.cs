@@ -67,7 +67,6 @@ public class DataHandler
                             SinglePriceClass priceClassRoot =
                                 JsonConvert.DeserializeObject<SinglePriceClass>(dataJson);
                             Console.WriteLine($"Price: {priceClassRoot.price}");
-
                             HelperMethods.ReturnToMenu();
                         }
                         else
@@ -83,7 +82,61 @@ public class DataHandler
                         }
 
                         break;
+                    case "timeSeries":
+                        Console.Clear();
+                        TimeSeriesClass.TimeSeriesRoot timeSeriesRoot =
+                            JsonConvert.DeserializeObject<TimeSeriesClass.TimeSeriesRoot>(dataJson);
+                        Console.WriteLine($"Symbol:             {timeSeriesRoot.Meta.symbol}");
+                        Console.WriteLine($"Interval:           {timeSeriesRoot.Meta.interval}");
+                        if (timeSeriesRoot.Meta.currency != null)
+                        {
+                            Console.WriteLine($"Currency:           {timeSeriesRoot.Meta.currency}");
+                        }
 
+                        if (timeSeriesRoot.Meta.exchange_timezone != null)
+                        {
+                            Console.WriteLine($"Exchange timezone:  {timeSeriesRoot.Meta.exchange_timezone}");
+                        }
+
+                        if (timeSeriesRoot.Meta.exchange != null)
+                        {
+                            Console.WriteLine($"Exchange:           {timeSeriesRoot.Meta.exchange}");
+                        }
+
+                        if (timeSeriesRoot.Meta.mic_code != null)
+                        {
+                            Console.WriteLine($"Mic code:           {timeSeriesRoot.Meta.mic_code}");
+                        }
+
+                        if (timeSeriesRoot.Meta.currency_base != null)
+                        {
+                            Console.WriteLine($"Currency base:      {timeSeriesRoot.Meta.currency_base}");
+                        }
+
+                        if (timeSeriesRoot.Meta.currency_quote != null)
+                        {
+                            Console.WriteLine($"Currency quote:     {timeSeriesRoot.Meta.currency_quote}");
+                        }
+
+                        Console.WriteLine($"Type:               {timeSeriesRoot.Meta.type}");
+                        Console.WriteLine();
+                        foreach (TimeSeriesClass.Value values in timeSeriesRoot.Values)
+                        {
+                            Console.WriteLine($"Datetime:       {values.datetime}");
+                            Console.WriteLine($"Open:           {values.open}");
+                            Console.WriteLine($"High:           {values.high}");
+                            Console.WriteLine($"Low:            {values.low}");
+                            Console.WriteLine($"Close:          {values.close}");
+                            if (values.volume != null)
+                            {
+                                Console.WriteLine($"Volume:         {values.volume}");
+                            }
+
+                            Console.WriteLine();
+                        }
+
+                        HelperMethods.ReturnToMenu();
+                        break;
                     default:
                         var jsonReader = jsonFormatted.CreateReader();
                         while (jsonReader.Read())
