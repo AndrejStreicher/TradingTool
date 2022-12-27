@@ -137,6 +137,37 @@ public class DataHandler
 
                         HelperMethods.ReturnToMenu();
                         break;
+                    case "quote":
+                        QuoteClass quoteRoot = JsonConvert.DeserializeObject<QuoteClass>(dataJson);
+                        Console.WriteLine($"Symbol: {quoteRoot.symbol}");
+                        Console.WriteLine($"Name: {quoteRoot.name}");
+                        Console.WriteLine($"Exchange: {quoteRoot.exchange}");
+                        Console.WriteLine($"Mic code: {quoteRoot.mic_code}");
+                        Console.WriteLine($"Currency: {quoteRoot.currency}");
+                        Console.WriteLine($"Datetime: {quoteRoot.datetime}");
+                        Console.WriteLine($"Timestamp: {quoteRoot.timestamp}");
+                        Console.WriteLine($"Open: {quoteRoot.open}");
+                        Console.WriteLine($"High: {quoteRoot.high}");
+                        Console.WriteLine($"Low: {quoteRoot.low}");
+                        Console.WriteLine($"Close: {quoteRoot.close}");
+                        Console.WriteLine($"Volume: {quoteRoot.volume}");
+                        Console.WriteLine($"Previous close: {quoteRoot.previous_close}");
+                        Console.WriteLine($"Change: {quoteRoot.change}");
+                        Console.WriteLine($"Percent change: {quoteRoot.percent_change}");
+                        Console.WriteLine($"Average volume: {quoteRoot.average_volume}");
+                        Console.WriteLine($"Is market open: {quoteRoot.is_market_open}");
+
+                        Console.WriteLine($"Fifty two week low: {quoteRoot.fifty_two_week.low}");
+                        Console.WriteLine($"Fifty two week high: {quoteRoot.fifty_two_week.high}");
+                        Console.WriteLine($"Fifty two week low change: {quoteRoot.fifty_two_week.low_change}");
+                        Console.WriteLine($"Fifty two week high change: {quoteRoot.fifty_two_week.high_change}");
+                        Console.WriteLine(
+                            $"Fifty two week low change percent: {quoteRoot.fifty_two_week.low_change_percent}");
+                        Console.WriteLine(
+                            $"Fifty two week high change percent: {quoteRoot.fifty_two_week.high_change_percent}");
+                        Console.WriteLine($"Fifty two week range: {quoteRoot.fifty_two_week.range}");
+                        HelperMethods.ReturnToMenu();
+                        break;
                     default:
                         var jsonReader = jsonFormatted.CreateReader();
                         while (jsonReader.Read())
