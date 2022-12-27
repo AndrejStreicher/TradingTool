@@ -108,8 +108,8 @@ public class InputChecker
     public static readonly string[] Intervals =
         { "1min", "5min", "15min", "30min", "45min", "1h", "2h", "4h", "1day", "1week", "1month" };
 
-    private static readonly string[] TechInterval =
-        { "ad", "avgprice", "bop", "ceil", "heikinashicandles", "hcl3", "medprice", "trange", "typrice", "wclprice" };
+    // private static readonly string[] TechInterval =
+    //     { "ad", "avgprice", "bop", "ceil", "heikinashicandles", "hcl3", "medprice", "trange", "typrice", "wclprice" };
 
     private static readonly string[] TechIntervalTimePeriod =
     {
@@ -138,11 +138,6 @@ public class InputChecker
     public static string GetTechIndicatorParameters(string? technicalIndicator)
     {
         string parameters = "";
-        if (TechInterval.Contains(technicalIndicator))
-        {
-            parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}");
-        }
-
         if (TechIntervalTimePeriod.Contains(technicalIndicator))
         {
             parameters = String.Concat(parameters, $"&interval={UserInputs.GetIntervalInput()}",

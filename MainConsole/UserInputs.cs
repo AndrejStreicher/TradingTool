@@ -1,4 +1,8 @@
-﻿namespace MainConsole;
+﻿using System.Net.Http.Json;
+using System.Text.Json.Nodes;
+using Newtonsoft.Json;
+
+namespace MainConsole;
 
 public class UserInputs
 {
@@ -110,13 +114,15 @@ public class UserInputs
 
     public static string GetStartdateInput()
     {
-        Console.WriteLine("Enter start-date (2000-12-31|or|2000-12-31 24-59-59): ");
+        Console.WriteLine(
+            "Enter start-date.\nPossible inputs:\n2000-12-31\n2000-12-31 24-59-59\nEarliest - for the earliest possible start-date:");
         return Console.ReadLine() ?? string.Empty;
     }
 
     public static string GetEnddateInput()
     {
-        Console.WriteLine("Enter end-date (2000-12-31|or|2000-12-31 24-59-59): ");
+        Console.WriteLine(
+            "Enter start-date.\nPossible inputs:\n2000-12-31\n2000-12-31 24-59-59:");
         return Console.ReadLine() ?? string.Empty;
     }
 

@@ -1,4 +1,6 @@
-﻿namespace MainConsole;
+﻿using Newtonsoft.Json;
+
+namespace MainConsole;
 
 public class GetFromApi
 {
@@ -9,17 +11,14 @@ public class GetFromApi
         fileName = "";
         string techIndicator = UserInputs.GetTechnicalIndicator();
         string symbol = UserInputs.GetSymbolInput();
+        string interval = UserInputs.GetIntervalInput();
         string startdate = UserInputs.GetStartdateInput();
-        string enddate;
-        if (startdate != "earliest")
+        if (startdate == "earliest" || startdate == "Earliest")
         {
-            enddate = UserInputs.GetEnddateInput();
-        }
-        else
-        {
-            enddate = "";
+            startdate = await HttpRequestEarliestTimestamp(symbol, interval);
         }
 
+        string enddate = UserInputs.GetEnddateInput();
         string parameters = InputChecker.GetTechIndicatorParameters(techIndicator);
         string requestString = string.Concat(techIndicator, "?symbol=", symbol, "&apikey=", HelperMethods.ApiKey,
             "&start_date=", startdate, "&end_date=", enddate, parameters);
@@ -47,16 +46,12 @@ public class GetFromApi
         string symbol = UserInputs.GetSymbolInput();
         string interval = UserInputs.GetIntervalInput();
         string startdate = UserInputs.GetStartdateInput();
-        string enddate;
-        if (startdate != "earliest")
+        if (startdate == "earliest" || startdate == "Earliest")
         {
-            enddate = UserInputs.GetEnddateInput();
-        }
-        else
-        {
-            enddate = "";
+            startdate = await HttpRequestEarliestTimestamp(symbol, interval);
         }
 
+        string enddate = UserInputs.GetEnddateInput();
         string requestString = string.Concat("time_series?symbol=", symbol, "&apikey=", HelperMethods.ApiKey,
             "&interval=", interval, "&start_date=", startdate, "&end_date=", enddate);
         HttpRequests request = new HttpRequests(requestString);
@@ -74,5 +69,14 @@ public class GetFromApi
         string responseJson = await request.ApiCall();
         fileName = $"SEARCH={symbol}";
         DataHandler.DataHandleJson(responseJson, "symbolLookup", fileName);
+    }
+
+    public static async Task<string> HttpRequestEarliestTimestamp(string symbol, string interval)
+    {
+        string requestString = $"earliest_timestamp?symbol={symbol}&interval={interval}&apikey={HelperMethods.ApiKey}";
+        HttpRequests request = new HttpRequests(requestString);
+        string responseJson = await request.ApiCall();
+        EarliestTimestampClass earliestTimestamp = JsonConvert.DeserializeObject<EarliestTimestampClass>(responseJson);
+        return earliestTimestamp.datetime.ToString("yyyy-MM-dd");
     }
 }
