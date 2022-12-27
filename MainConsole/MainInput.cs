@@ -20,7 +20,7 @@
             string[] options =
             {
                 "Get ticker info (current price, time-series, quote...)", "Get technical indicator", "Symbol search",
-                "Backtest an existing strategy", "Exit"
+                "Backtest an existing strategy(NOT IMPLEMENTED YET)", "Exit"
             };
             Menu mainMenu = new Menu(prompt, options);
             int selectedItem = mainMenu.CreateMenu();
