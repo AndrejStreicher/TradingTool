@@ -6,7 +6,7 @@ public static class HelperMethods
 
     public static void ReturnToMenu()
     {
-        Console.WriteLine("Press any key to return to main menu...");
+        Console.WriteLine("Press any key to return...");
         Console.ReadKey(true);
     }
 
